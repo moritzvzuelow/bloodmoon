@@ -639,7 +639,6 @@ tracks/1/keys = {
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
-freezePlayer = true
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.75, 0, 0, 0, 0.5, 0, 0, 0 )
@@ -678,7 +677,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 52
-frame = 12
+frame = 48
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -722,13 +721,12 @@ anims/slashWindup = SubResource( 20 )
 transform = Transform( 0.25, 0, 0, 0, -4.07302e-08, -0.5, 0, 0.25, -8.14603e-08, 0, 0, 0 )
 cast_shadow = 3
 mesh = SubResource( 21 )
-material/0 = null
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="AttackSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 13 )
 volume_db = -9.0
 
 [node name="HurtSFX" type="AudioStreamPlayer" parent="."]
@@ -749,9 +747,6 @@ __meta__ = {
 [node name="Control" type="Control" parent="CanvasLayer"]
 margin_right = 40.0
 margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Pixelator" type="Sprite" parent="CanvasLayer/Control"]
 scale = Vector2( 5, 5 )
@@ -766,9 +761,6 @@ text = "Test Text"
 align = 1
 valign = 2
 autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Dialogue" type="Label" parent="CanvasLayer/Control/Pixelator"]
 margin_left = 52.0
@@ -790,7 +782,7 @@ scale = Vector2( 10, 10 )
 texture = ExtResource( 6 )
 centered = false
 hframes = 23
-frame = 3
+frame = 22
 
 [node name="Healthbar" type="ColorRect" parent="CanvasLayer/Control"]
 margin_left = 459.0
@@ -872,7 +864,7 @@ centered = false
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-color = Color( 1, 0, 0, 0.619608 )
+color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -886,5 +878,7 @@ anims/fadein = SubResource( 25 )
 anims/teleport = SubResource( 26 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 3 )]
+
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]
+[connection signal="senseChanged" from="PauseMenu" to="." method="_on_PauseMenu_senseChanged"]

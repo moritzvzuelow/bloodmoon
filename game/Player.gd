@@ -1,6 +1,5 @@
 extends KinematicBody
 
-const MOUSE_SENS = 0.25
 const SPEED = 10
 const ACCEL = 20
 const DASH_LENGTH = .75
@@ -44,6 +43,7 @@ var isDashing = false
 var dashRemaining = 0
 var dead = false
 var level
+var mouseSense = .0
 
 func _ready():
 	level = get_parent()
@@ -62,11 +62,15 @@ func _ready():
 	clearDialogue()
 	colorrect.color = Color(0,0,0,0)
 	blood.emitting = false
+	mouseSense = pauseMenu.sensSlider.value
 
 func _input(event):
+	if get_tree().paused:
+		return
+	
 	if event is InputEventMouseMotion and !freezePlayer:
-		rotation_degrees.y -= MOUSE_SENS * event.relative.x
-		head.rotation_degrees.x = clamp(head.rotation_degrees.x - MOUSE_SENS * event.relative.y, -90, 90)
+		rotation_degrees.y -= mouseSense * get_process_delta_time() * event.relative.x
+		head.rotation_degrees.x = clamp(head.rotation_degrees.x - mouseSense * get_process_delta_time() * event.relative.y, -90, 90)
 
 func _physics_process(delta):
 	# System
@@ -243,3 +247,6 @@ func doTeleport():
 	
 func playHealthPickupAnim():
 	cameraAnimationPlayer.play("healthpickup")
+
+func _on_PauseMenu_senseChanged(value):
+	mouseSense = value 
