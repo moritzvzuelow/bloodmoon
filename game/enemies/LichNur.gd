@@ -78,6 +78,8 @@ func _physics_process(delta):
 	unitVecToPlayer = unitVecToPlayer.normalized()
 	raycast.cast_to = translation + unitVecToPlayer * ATTACK_RANGE
 	
+	print(state)
+	
 	# State Machine
 	if state == WIZARD:
 		pass
@@ -112,6 +114,9 @@ func _physics_process(delta):
 				currentPathNode += 1
 			else:
 				move_and_slide(moveDirection.normalized() * SPEED)
+	else:
+		if !animationPlayer.is_playing():
+			state = ATTACK
 
 # Interface Stuffs
 
