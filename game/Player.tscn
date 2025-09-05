@@ -1,6 +1,6 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
-[ext_resource path="res://assets/Greatsword.png" type="Texture" id=1]
+[ext_resource path="res://assets/Greatsword_2.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
 [ext_resource path="res://game/PauseMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/audio/PlayerGrunt1.wav" type="AudioStream" id=4]
@@ -170,6 +170,21 @@ size = Vector2( 0.04, 0.04 )
 [sub_resource type="Gradient" id=9]
 colors = PoolColorArray( 0.183594, 1, 0, 1, 0, 0, 0, 0 )
 
+[sub_resource type="Animation" id=27]
+resource_name = "block"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 53 ]
+}
+
 [sub_resource type="Animation" id=10]
 length = 0.4
 loop = true
@@ -180,10 +195,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 36, 37, 38, 39 ]
+"values": [ 36 ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -269,6 +284,21 @@ tracks/1/keys = {
 "args": [  ],
 "method": "doDash"
 } ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 52 ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -676,8 +706,8 @@ shaded = true
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
-hframes = 52
-frame = 48
+hframes = 54
+frame = 52
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -705,10 +735,12 @@ color_ramp = SubResource( 9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.5
+anims/block = SubResource( 27 )
 anims/dash = SubResource( 10 )
 anims/dashMiss = SubResource( 11 )
 anims/dashStab = SubResource( 12 )
 anims/dashStart = SubResource( 13 )
+anims/idle = SubResource( 28 )
 anims/kick = SubResource( 14 )
 anims/leftReturn = SubResource( 15 )
 anims/rightExit = SubResource( 16 )
@@ -726,7 +758,7 @@ __meta__ = {
 }
 
 [node name="AttackSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
+stream = ExtResource( 12 )
 volume_db = -9.0
 
 [node name="HurtSFX" type="AudioStreamPlayer" parent="."]

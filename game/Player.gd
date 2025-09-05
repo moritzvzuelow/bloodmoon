@@ -1,10 +1,10 @@
 extends KinematicBody
 
-const SPEED = 10
-const ACCEL = 20
+const SPEED = 5
+const ACCEL = 10
 const DASH_LENGTH = .75
 const BLOOD_SCALE = 5
-const FEATURE_FLAG_DASH = false
+const FEATURE_FLAG_DASH = true
 
 var velocity
 
@@ -44,6 +44,8 @@ var dashRemaining = 0
 var dead = false
 var level
 var mouseSense = .0
+var isBlocking = false
+var currentSpeed = SPEED
 
 func _ready():
 	level = get_parent()
@@ -93,15 +95,26 @@ func _physics_process(delta):
 	elif tooltip.text != "":
 		tooltip.text = ""
 	
-	if isIdle():
+	if isIdle() or isBlocking:
 		if Input.is_action_pressed("slash"):
 			animationPlayer.play("slashWindup")
+			stopBlock()
 		elif Input.is_action_pressed("kick"):
 			animationPlayer.play("kick")
+			stopBlock()
 		elif Input.is_action_pressed("dash") and FEATURE_FLAG_DASH:
 			isDashing = true
 			dashRemaining = DASH_LENGTH
 			animationPlayer.play("dashStart")
+			stopBlock()
+			
+	if isIdle():
+		if Input.is_action_pressed("block"):
+			doBlock()
+			
+	if isBlocking and Input.is_action_just_released("block"):
+		stopBlock()
+		sprite.frame = 0
 
 	# Movement
 	var moveVector = Vector3()
@@ -117,7 +130,7 @@ func _physics_process(delta):
 
 	moveVector = moveVector.normalized() if !isDashing else Vector3(0,0,-2)
 	moveVector = moveVector.rotated(Vector3(0, 1, 0), rotation.y)
-	velocity = lerp(velocity, moveVector * SPEED, ACCEL * delta)
+	velocity = lerp(velocity, moveVector * currentSpeed, ACCEL * delta)
 
 	if isDashing:
 		var dashTarget = rayCastClose.get_collider()
@@ -139,6 +152,15 @@ func isIdle():
 
 func doSlash():
 	animationPlayer.play("slash")
+	
+func doBlock():
+	isBlocking = true
+	currentSpeed = 1
+	animationPlayer.play("block")
+	
+func stopBlock():
+	isBlocking = false
+	currentSpeed = SPEED
 	
 func doSlashBackOrReturn():
 	if Input.is_action_pressed("slash"):
@@ -190,6 +212,10 @@ func doStab(target):
 func damage(d: int):
 	if dead:
 		return
+	
+	if isBlocking:
+		return
+		
 	blood.amount = BLOOD_SCALE * d
 	cameraAnimationPlayer.play("take_damage")
 	global.playerHealth -= d
