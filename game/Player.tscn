@@ -707,7 +707,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 54
-frame = 52
+frame = 1
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -781,6 +781,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Pixelator" type="Sprite" parent="CanvasLayer/Control"]
+visible = false
 scale = Vector2( 5, 5 )
 
 [node name="tooltip" type="Label" parent="CanvasLayer/Control/Pixelator"]
@@ -810,28 +811,15 @@ __meta__ = {
 }
 
 [node name="YouDied" type="Sprite" parent="CanvasLayer/Control"]
+visible = false
 scale = Vector2( 10, 10 )
 texture = ExtResource( 6 )
 centered = false
 hframes = 23
 frame = 22
 
-[node name="Healthbar" type="ColorRect" parent="CanvasLayer/Control"]
-margin_left = 459.0
-margin_top = 1007.0
-margin_right = 1462.0
-margin_bottom = 1043.0
-color = Color( 0.996078, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Helth" type="Sprite" parent="CanvasLayer/Control"]
-scale = Vector2( 10, 10 )
-texture = ExtResource( 7 )
-centered = false
-
 [node name="crests" type="Node2D" parent="CanvasLayer/Control"]
+visible = false
 position = Vector2( 240, 0 )
 
 [node name="Crest1" type="Sprite" parent="CanvasLayer/Control/crests"]
@@ -856,11 +844,13 @@ hframes = 4
 frame = 3
 
 [node name="Crosshair" type="Sprite" parent="CanvasLayer/Control"]
+visible = false
 position = Vector2( 960, 540 )
 scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 10 )
 
 [node name="keys" type="Node2D" parent="CanvasLayer/Control"]
+visible = false
 position = Vector2( 90, 960 )
 
 [node name="redkey" type="Sprite" parent="CanvasLayer/Control/keys"]
@@ -880,26 +870,55 @@ position = Vector2( 0, -950 )
 
 [node name="BossHealth" type="ColorRect" parent="CanvasLayer/Control/Boss"]
 margin_left = 459.0
-margin_top = 1007.0
+margin_top = 1956.0
 margin_right = 1462.0
-margin_bottom = 1043.0
-color = Color( 0, 0.996078, 0.109804, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 1992.0
+color = Color( 0.380392, 0, 0, 1 )
 
 [node name="BossHelth" type="Sprite" parent="CanvasLayer/Control/Boss"]
+position = Vector2( 2, 947 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 7 )
 centered = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
 margin_right = 1920.0
 margin_bottom = 1080.0
 color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Health" type="Node2D" parent="CanvasLayer/Control"]
+
+[node name="Healthbar" type="ColorRect" parent="CanvasLayer/Control/Health"]
+margin_left = 36.0
+margin_top = 49.0
+margin_right = 455.0
+margin_bottom = 69.0
+color = Color( 0.996078, 0, 0, 1 )
+
+[node name="Helth" type="Sprite" parent="CanvasLayer/Control/Health"]
+position = Vector2( -155, -626 )
+scale = Vector2( 4.17708, 6.68518 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="Stamina" type="Node2D" parent="CanvasLayer/Control"]
+
+[node name="StaminaBar" type="ColorRect" parent="CanvasLayer/Control/Stamina"]
+margin_left = 36.0
+margin_top = 84.0
+margin_right = 327.0
+margin_bottom = 104.0
+color = Color( 0.0705882, 0.85098, 0.101961, 1 )
+
+[node name="Stam" type="Sprite" parent="CanvasLayer/Control/Stamina"]
+position = Vector2( -98, -550 )
+scale = Vector2( 2.91146, 6.28704 )
+texture = ExtResource( 7 )
+centered = false
 
 [node name="DialogueAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/print = SubResource( 23 )
@@ -910,6 +929,10 @@ anims/fadein = SubResource( 25 )
 anims/teleport = SubResource( 26 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 3 )]
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
 
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]

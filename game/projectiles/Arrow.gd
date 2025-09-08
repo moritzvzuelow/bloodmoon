@@ -23,6 +23,9 @@ func setVelocity(v):
 	velocity = v
 
 func _ready():
+	$CollisionShape.disabled = true
+	yield(get_tree(), "physics_frame")
+	$CollisionShape.disabled = false
 	add_to_group("projectiles")
 	look_at(velocity, Vector3(0,1,0))
 
@@ -33,7 +36,7 @@ func _physics_process(delta):
 	if !player:
 		return
 
-	var col = move_and_collide(velocity * delta)
+	var col = move_and_collide(velocity * delta, false)
 	if col:
 		doHit(col.collider)
 
@@ -62,9 +65,14 @@ func _physics_process(delta):
 		sprite.frame = BACK
 
 func doHit(target):
-	if target == source or target.is_in_group("enemies"):
+	if delete(target):
 		return
 	if target.has_method("damage"):
 		target.damage(DAMAGE)
 	queue_free() #delete self
-
+	
+func delete(target):
+	if target == source or target.is_in_group("enemies") or target.is_in_group("obstacles"):
+		queue_free()
+		return true
+	return false

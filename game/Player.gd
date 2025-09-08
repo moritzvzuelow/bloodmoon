@@ -18,7 +18,8 @@ onready var cameraAnimationPlayer = $Head/CameraAnimationPlayer
 onready var sprite = $Head/Camera/Sprite3D
 onready var blood = $Head/Blood
 onready var deathscreen = $CanvasLayer/Control/YouDied
-onready var healthbar = $CanvasLayer/Control/Healthbar
+onready var healthbar = $CanvasLayer/Control/Health/Healthbar
+onready var staminaBar = $CanvasLayer/Control/Stamina/StaminaBar
 onready var crest1 = $CanvasLayer/Control/crests/Crest1
 onready var crest2 = $CanvasLayer/Control/crests/Crest2
 onready var crest3 = $CanvasLayer/Control/crests/Crest3
@@ -34,6 +35,10 @@ onready var bossHealthAssembly = $CanvasLayer/Control/Boss
 onready var bossHealthBar = $CanvasLayer/Control/Boss/BossHealth
 onready var pauseMenu = $PauseMenu
 
+
+##########################################
+onready var label = $Label
+
 export var freezePlayer = false setget setFreezePlayer
 
 func setFreezePlayer(f):
@@ -46,6 +51,12 @@ var level
 var mouseSense = .0
 var isBlocking = false
 var currentSpeed = SPEED
+
+# levelpoints
+var staminaLevel = 0
+
+var staminaMax = 100 + staminaLevel * 20
+var stamina = staminaMax
 
 func _ready():
 	level = get_parent()
@@ -75,6 +86,9 @@ func _input(event):
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - mouseSense * get_process_delta_time() * event.relative.y, -90, 90)
 
 func _physics_process(delta):
+	##################################################
+	$Label.text = "%s" % stamina
+	
 	# System
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
@@ -97,24 +111,24 @@ func _physics_process(delta):
 	
 	if isIdle() or isBlocking:
 		if Input.is_action_pressed("slash"):
-			animationPlayer.play("slashWindup")
-			stopBlock()
+			startSlash()
 		elif Input.is_action_pressed("kick"):
-			animationPlayer.play("kick")
-			stopBlock()
+			doKick()
 		elif Input.is_action_pressed("dash") and FEATURE_FLAG_DASH:
 			isDashing = true
 			dashRemaining = DASH_LENGTH
 			animationPlayer.play("dashStart")
 			stopBlock()
 			
-	if isIdle():
-		if Input.is_action_pressed("block"):
+	if isIdle() and not isBlocking:
+		addStamina(30 * delta)
+		if Input.is_action_just_pressed("block"):
 			doBlock()
 			
-	if isBlocking and Input.is_action_just_released("block"):
-		stopBlock()
-		sprite.frame = 0
+	if isBlocking:
+		addStamina(-30 * delta)
+		if Input.is_action_just_released("block") or not hasEnoughStamina(0.01):
+			stopBlock()
 
 	# Movement
 	var moveVector = Vector3()
@@ -149,20 +163,59 @@ func _physics_process(delta):
 # future proofing in case I add an idle animation
 func isIdle():
 	return !animationPlayer.is_playing()
+	
+func startSlash():
+	var staminaCost = 40
+	if not hasEnoughStamina(staminaCost):
+		return
+	stopBlock()
+	animationPlayer.play("slashWindup")
 
 func doSlash():
+	var staminaCost = 40
+	if not hasEnoughStamina(staminaCost):
+		return
+	addStamina(-staminaCost)
 	animationPlayer.play("slash")
 	
 func doBlock():
+	if not hasEnoughStamina(20):
+		stopBlock()
+		return
+	
 	isBlocking = true
 	currentSpeed = 1
 	animationPlayer.play("block")
 	
+func doKick():
+	var staminaCost = 20
+	if not hasEnoughStamina(staminaCost):
+		return
+	stopBlock()
+	animationPlayer.play("kick")
+	addStamina(-staminaCost)
+	
 func stopBlock():
 	isBlocking = false
 	currentSpeed = SPEED
+	sprite.frame = 0
+	
+func hasEnoughStamina(s):
+	return stamina >= s
+	
+func addStamina(s):
+	var delta = get_physics_process_delta_time()
+	stamina += s
+	stamina = clamp(stamina, 0, staminaMax)
+	updateHud()
 	
 func doSlashBackOrReturn():
+	var staminaCost = 40
+	if not hasEnoughStamina(staminaCost):
+		animationPlayer.play("leftReturn")
+		return
+	addStamina(-staminaCost)
+	
 	if Input.is_action_pressed("slash"):
 		animationPlayer.play("slashBack")
 	elif Input.is_action_pressed("kick"):
@@ -171,6 +224,12 @@ func doSlashBackOrReturn():
 		animationPlayer.play("leftReturn")
 
 func doSlashOrReturn():
+	var staminaCost = 40
+	if not hasEnoughStamina(staminaCost):
+		animationPlayer.play("rightReturn")
+		return
+	addStamina(-staminaCost)
+	
 	if Input.is_action_pressed("slash"):
 		animationPlayer.play("slash")
 	elif Input.is_action_pressed("kick"):
@@ -214,6 +273,8 @@ func damage(d: int):
 		return
 	
 	if isBlocking:
+		var staminaCost = 30
+		addStamina(-staminaCost)
 		return
 		
 	blood.amount = BLOOD_SCALE * d
@@ -237,6 +298,8 @@ func updateHud():
 	bluekey.visible = level.has_method("playerHasKey") and level.playerHasKey(1)
 	var hpPercent = float(global.playerHealth)/float(global.MAX_HP)
 	healthbar.rect_scale = Vector2(hpPercent, 1)
+	var staminaPercent = float(stamina)/float(staminaMax)
+	staminaBar.rect_scale = Vector2(staminaPercent, 1)
 	var bossHpPercent = float(global.bossHealth)/float(global.BOSS_MAX_HP)
 	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)
 	if global.inBossFight:

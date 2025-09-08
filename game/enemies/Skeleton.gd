@@ -132,7 +132,6 @@ func advance():
 	getPathToPlayer()
 
 func attack():
-	animationPlayer.play("idle")
 	state = ATTACK
 
 func retreat():

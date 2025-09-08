@@ -21,6 +21,7 @@ func setOpen(o):
 	open = o
 
 func _ready():
+	add_to_group("obstacles")
 	open = false
 	collisionShape.disabled = false
 	mi1.visible = true
