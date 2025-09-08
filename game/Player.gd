@@ -25,6 +25,7 @@ onready var blood = $Head/Blood
 onready var deathscreen = $CanvasLayer/Control/YouDied
 onready var healthbar = $CanvasLayer/Control/Health/Healthbar
 onready var staminaBar = $CanvasLayer/Control/Stamina/StaminaBar
+onready var manaBar = $CanvasLayer/Control/Mana/ManaBar
 onready var crest1 = $CanvasLayer/Control/crests/Crest1
 onready var crest2 = $CanvasLayer/Control/crests/Crest2
 onready var crest3 = $CanvasLayer/Control/crests/Crest3
@@ -56,9 +57,12 @@ var currentSpeed = SPEED
 
 # levelpoints
 var staminaLevel = 0
+var manaLevel = 0
 
 var staminaMax = 100 + staminaLevel * 20
 var stamina = staminaMax
+var manaMax = 100 + manaLevel * 20
+var mana = manaMax
 
 func _ready():
 	level = get_parent()
@@ -166,14 +170,14 @@ func isIdle():
 	return !animationPlayer.is_playing()
 	
 func startSlash():
-	var staminaCost = 40
+	var staminaCost = 30
 	if not hasEnoughStamina(staminaCost):
 		return
 	stopBlock()
 	animationPlayer.play("slashWindup")
 
 func doSlash():
-	var staminaCost = 40
+	var staminaCost = 30
 	if not hasEnoughStamina(staminaCost):
 		return
 	addStamina(-staminaCost)
@@ -198,11 +202,13 @@ func doKick():
 
 func doShoot():
 	var staminaCost = 10
-	if not hasEnoughStamina(staminaCost):
+	var manaCost = 20
+	if not hasEnoughStamina(staminaCost) or not hasEnoughMana(manaCost):
 		return
 	stopBlock()
 	animationPlayer.play("shoot")
 	addStamina(-staminaCost)
+	addMana(-manaCost)
 	
 func stopBlock():
 	isBlocking = false
@@ -211,14 +217,22 @@ func stopBlock():
 	
 func hasEnoughStamina(s):
 	return stamina >= s
+
+func hasEnoughMana(m):
+	return mana >= m
 	
 func addStamina(s):
 	stamina += s
 	stamina = clamp(stamina, 0, staminaMax)
 	updateHud()
+
+func addMana(m):
+	mana += m
+	mana = clamp(mana, 0, manaMax)
+	updateHud()
 	
 func doSlashBackOrReturn():
-	var staminaCost = 40
+	var staminaCost = 30
 	if not hasEnoughStamina(staminaCost):
 		animationPlayer.play("leftReturn")
 		return
@@ -232,7 +246,7 @@ func doSlashBackOrReturn():
 		animationPlayer.play("leftReturn")
 
 func doSlashOrReturn():
-	var staminaCost = 40
+	var staminaCost = 30
 	if not hasEnoughStamina(staminaCost):
 		animationPlayer.play("rightReturn")
 		return
@@ -319,6 +333,8 @@ func updateHud():
 	healthbar.rect_scale = Vector2(hpPercent, 1)
 	var staminaPercent = float(stamina)/float(staminaMax)
 	staminaBar.rect_scale = Vector2(staminaPercent, 1)
+	var manaPercent = float(mana)/float(manaMax)
+	manaBar.rect_scale = Vector2(manaPercent, 1)
 	var bossHpPercent = float(global.bossHealth)/float(global.BOSS_MAX_HP)
 	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)
 	if global.inBossFight:
@@ -355,6 +371,9 @@ func doTeleport():
 	
 func playHealthPickupAnim():
 	cameraAnimationPlayer.play("healthpickup")
+
+func playManaPickupAnim():
+	cameraAnimationPlayer.play("manapickup")
 
 func _on_PauseMenu_senseChanged(value):
 	mouseSense = value 
