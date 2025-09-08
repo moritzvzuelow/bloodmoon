@@ -5,6 +5,11 @@ const ACCEL = 10
 const DASH_LENGTH = .75
 const BLOOD_SCALE = 5
 const FEATURE_FLAG_DASH = true
+const MAGICBALL_START_DISTANCE = 1
+const MAGICBALL_SPEED = 10
+const MAGICBALL_HEIGHT = 0.75
+
+var magicBallResource = preload("res://game/projectiles/MagicBall.tscn")
 
 var velocity
 
@@ -106,8 +111,10 @@ func _physics_process(delta):
 	if isIdle() or isBlocking:
 		if Input.is_action_pressed("slash"):
 			startSlash()
-		elif Input.is_action_pressed("kick"):
+		elif Input.is_action_just_pressed("kick"):
 			doKick()
+		elif Input.is_action_just_pressed("shoot"):
+			doShoot()
 		elif Input.is_action_pressed("dash") and FEATURE_FLAG_DASH:
 			isDashing = true
 			dashRemaining = DASH_LENGTH
@@ -188,6 +195,14 @@ func doKick():
 	stopBlock()
 	animationPlayer.play("kick")
 	addStamina(-staminaCost)
+
+func doShoot():
+	var staminaCost = 10
+	if not hasEnoughStamina(staminaCost):
+		return
+	stopBlock()
+	animationPlayer.play("shoot")
+	addStamina(-staminaCost)
 	
 func stopBlock():
 	isBlocking = false
@@ -229,6 +244,17 @@ func doSlashOrReturn():
 		animationPlayer.play("kick")
 	else:
 		animationPlayer.play("rightReturn")
+
+func shoot():
+	var direction = Vector3(0, 0, -1)
+	direction = direction.rotated(Vector3(0, 1, 0), rotation.y)
+	var magicBall = magicBallResource.instance()
+	magicBall.translation = translation + direction * MAGICBALL_START_DISTANCE
+	magicBall.translation.y = MAGICBALL_HEIGHT
+	magicBall.setSource(self)
+	magicBall.setVelocity(direction * MAGICBALL_SPEED)
+	get_parent().get_parent().add_child(magicBall)
+	animationPlayer.play("rightReturn")
 
 func doDash():
 	animationPlayer.play("dash")

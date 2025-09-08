@@ -3,7 +3,6 @@ extends KinematicBody
 const DAMAGE = 10
 
 var velocity = Vector3()
-var target
 var source
 
 func setSource(s):
@@ -13,23 +12,20 @@ func setVelocity(v):
 	velocity = v
 
 func _ready():
+	$CollisionShape.disabled = true
+	yield(get_tree(), "physics_frame")
+	$CollisionShape.disabled = false
 	add_to_group("projectiles")
 
-func setPlayer(t):
-	target = t 
 
 func _physics_process(delta):
-	if !target:
-		return
-
 	var col = move_and_collide(velocity * delta)
 	if col:
 		doHit(col.collider)
 
 func doHit(collider):
-	if collider == source or collider.is_in_group("enemies") or collider.is_in_group("obstacles"):
+	if collider == source or collider.is_in_group("obstacles"):
 		return
 	if collider.has_method("damage"):
 		collider.damage(DAMAGE)
 	queue_free() #delete self
-
