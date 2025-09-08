@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://game/environment/walls.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://game/environment/floors.meshlib" type="MeshLibrary" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://game/enemies/Skeleton.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/audio/bg1.wav" type="AudioStream" id=14]
 [ext_resource path="res://assets/audio/wizard/welcome_dungeon.wav" type="AudioStream" id=15]
+[ext_resource path="res://game/environment/torch.tscn" type="PackedScene" id=16]
+[ext_resource path="res://game/environment/torch.gd" type="Script" id=17]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 3 )
@@ -229,3 +231,55 @@ autoplay = true
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
 autoplay = true
+
+[node name="torch" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.43711, 0, 1.74943, 0, 3, 0, -1.74943, 0, 2.43711, -1.33832, 0.953957, -16.9054 )
+torchNum = 2
+
+[node name="torch2" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.12199, 0, 2.12065, 0, 3, 0, -2.12065, 0, 2.12199, 6.96607, 0.982535, -29.0903 )
+torchNum = 2
+
+[node name="torch3" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.25918, 0, 1.97386, 0, 3, 0, -1.97386, 0, 2.25918, 50.6987, 0.997322, -22.8092 )
+torchNum = 1
+
+[node name="torch6" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.10206, 0, 2.14041, 0, 3, 0, -2.14041, 0, 2.10206, 22.8739, 0.997322, -36.7273 )
+script = ExtResource( 17 )
+torchNum = 2
+
+[node name="torch7" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.53133, 0, -1.61009, 0, 3, 0, 1.61009, 0, 2.53133, 19.1194, 0.997322, -35.2008 )
+script = ExtResource( 17 )
+torchNum = 1
+
+[node name="torch8" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.20244, 0, -2.03698, 0, 3, 0, 2.03698, 0, 2.20244, 3.47238, 0.997322, -45.3401 )
+script = ExtResource( 17 )
+
+[node name="torch9" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.31953, 0, 1.90258, 0, 3, 0, -1.90258, 0, 2.31953, 3.47238, 0.997322, -48.5404 )
+script = ExtResource( 17 )
+torchNum = 2
+
+[node name="torch10" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.31953, 0, 1.90258, 0, 3, 0, -1.90258, 0, 2.31953, -4.53133, 0.997322, -78.8247 )
+script = ExtResource( 17 )
+torchNum = 2
+
+[node name="torch11" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.31953, 0, 1.90258, 0, 3, 0, -1.90258, 0, 2.31953, -5.31518, 0.997322, -97.4145 )
+
+[node name="torch12" parent="." instance=ExtResource( 16 )]
+transform = Transform( 0.0478022, 0, 2.99962, 0, 3, 0, -2.99962, 0, 0.0478022, -35.1568, 0.997322, -89.1517 )
+
+[node name="torch4" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.30254, 0, -1.92311, 0, 3, 0, 1.92311, 0, 2.30254, 66.7919, 0.997322, -38.6138 )
+script = ExtResource( 17 )
+torchNum = 1
+
+[node name="torch5" parent="." instance=ExtResource( 16 )]
+transform = Transform( 2.30254, 0, -1.92311, 0, 3, 0, 1.92311, 0, 2.30254, 55.2615, 1.05122, -23.386 )
+script = ExtResource( 17 )
+torchNum = 2

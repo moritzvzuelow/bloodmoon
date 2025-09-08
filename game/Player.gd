@@ -204,7 +204,6 @@ func hasEnoughStamina(s):
 	return stamina >= s
 	
 func addStamina(s):
-	var delta = get_physics_process_delta_time()
 	stamina += s
 	stamina = clamp(stamina, 0, staminaMax)
 	updateHud()
