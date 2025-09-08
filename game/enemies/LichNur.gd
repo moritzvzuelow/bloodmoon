@@ -62,7 +62,7 @@ func setPlayer(p):
 func setBlocking(b: bool):
 	blocking = b
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !player:
 		return
 	
@@ -71,7 +71,6 @@ func _physics_process(delta):
 	playerPoint.y = translation.y
 	look_at(playerPoint, Vector3(0,1,0))
 	
-	var distanceToPlayer = getDistanceToPlayer()
 	
 	var unitVecToPlayer = getVectorToPlayer()
 	unitVecToPlayer.y = 0
@@ -245,7 +244,7 @@ func getPathToPlayer():
 func burst():
 	var degreeDifference = PI*2 / BURST_PROJECTILES
 	var launchPoint = Vector3(0,0,-1)
-	for n in range(BURST_PROJECTILES):
+	for _n in range(BURST_PROJECTILES):
 		# TODO create the projectiles at the different rotations
 		launchPoint = launchPoint.rotated(Vector3(0,1,0), degreeDifference)
 		var arrow = fireballResource.instance()

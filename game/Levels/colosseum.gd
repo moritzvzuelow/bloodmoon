@@ -34,5 +34,5 @@ func _on_enemyTriggerArea2_area_entered(area):
 	bossGateClosed = true
 	bossGate.close()
 
-func reportDeath(creature):
+func reportDeath(_creature):
 	crestGate.open()

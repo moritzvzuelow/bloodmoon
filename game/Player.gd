@@ -36,9 +36,6 @@ onready var bossHealthBar = $CanvasLayer/Control/Boss/BossHealth
 onready var pauseMenu = $PauseMenu
 
 
-##########################################
-onready var label = $Label
-
 export var freezePlayer = false setget setFreezePlayer
 
 func setFreezePlayer(f):
@@ -86,9 +83,6 @@ func _input(event):
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - mouseSense * get_process_delta_time() * event.relative.y, -90, 90)
 
 func _physics_process(delta):
-	##################################################
-	$Label.text = "%s" % stamina
-	
 	# System
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()

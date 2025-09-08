@@ -49,7 +49,7 @@ func setPlayer(p):
 	
 # Interface Stuffs
 
-func kick(direction):
+func kick(_direction):
 	damage(0)
 func slash():
 	damage(5)
@@ -67,7 +67,7 @@ func damage(d):
 
 # runloop
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !player:
 		return
 

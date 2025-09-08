@@ -47,7 +47,7 @@ const credits = [
 	"and thank YOU for playing BLOODMOON."
 ]
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# System
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()

@@ -16,7 +16,7 @@ func _ready():
 	control.pause_mode = Node.PAUSE_MODE_PROCESS
 	sensSlider.pause_mode = Node.PAUSE_MODE_PROCESS
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if get_tree().paused and Input.is_action_just_pressed("ui_accept"):
 		get_tree().quit()
 	elif Input.is_action_just_pressed("actualQuit"):

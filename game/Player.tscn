@@ -781,7 +781,6 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Pixelator" type="Sprite" parent="CanvasLayer/Control"]
-visible = false
 scale = Vector2( 5, 5 )
 
 [node name="tooltip" type="Label" parent="CanvasLayer/Control/Pixelator"]
@@ -811,7 +810,6 @@ __meta__ = {
 }
 
 [node name="YouDied" type="Sprite" parent="CanvasLayer/Control"]
-visible = false
 scale = Vector2( 10, 10 )
 texture = ExtResource( 6 )
 centered = false
@@ -819,7 +817,6 @@ hframes = 23
 frame = 22
 
 [node name="crests" type="Node2D" parent="CanvasLayer/Control"]
-visible = false
 position = Vector2( 240, 0 )
 
 [node name="Crest1" type="Sprite" parent="CanvasLayer/Control/crests"]
@@ -844,13 +841,11 @@ hframes = 4
 frame = 3
 
 [node name="Crosshair" type="Sprite" parent="CanvasLayer/Control"]
-visible = false
 position = Vector2( 960, 540 )
 scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 10 )
 
 [node name="keys" type="Node2D" parent="CanvasLayer/Control"]
-visible = false
 position = Vector2( 90, 960 )
 
 [node name="redkey" type="Sprite" parent="CanvasLayer/Control/keys"]
@@ -882,7 +877,6 @@ texture = ExtResource( 7 )
 centered = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
-visible = false
 margin_right = 1920.0
 margin_bottom = 1080.0
 color = Color( 1, 1, 1, 0 )
@@ -929,10 +923,6 @@ anims/fadein = SubResource( 25 )
 anims/teleport = SubResource( 26 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 3 )]
-
-[node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
 
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]

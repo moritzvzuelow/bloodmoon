@@ -30,7 +30,7 @@ func _ready():
 	rotation.y = 0
 	isKicking = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !isKicking:
 		return
 	move_and_slide(velocity)

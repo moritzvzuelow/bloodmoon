@@ -9,7 +9,7 @@ func _ready():
 func setPlayer(p):
 	player = p
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !player:
 		return
 	look_at(player.translation, Vector3(0,1,0))

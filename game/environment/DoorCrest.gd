@@ -13,7 +13,7 @@ func _ready():
 	updateVis()
 	pass
 
-func _process(delta):
+func _process(_delta):
 	updateVis()
 	pass
 

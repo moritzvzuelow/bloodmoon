@@ -9,7 +9,7 @@ onready var kyle = $kyle
 
 onready var global = get_node("/root/Global")
 
-const introDialogue = [
+const introDialogueContent = [
 	"WIZARD NODROG: Congratulations, PALADIN, you have made it into CASTLE BLOODMOON.",
 	"WIZARD NODROG: Oh, you are wondering why I am here, and not the LICH NUR?",
 	"I AM THE LICH NUR!",
@@ -46,7 +46,7 @@ func introDialogue():
 	animationPlayer.play("introDialogue")
 
 func playIntroDialogue(i:int):
-	player.playDialogue(introDialogue[i])
+	player.playDialogue(introDialogueContent[i])
 	kyle.stream = load(introSounds[i])
 	kyle.playing = true
 
