@@ -9,6 +9,8 @@ const MAGICBALL_START_DISTANCE = 1
 const MAGICBALL_SPEED = 10
 const MAGICBALL_HEIGHT = 0.75
 
+const SLASH_BASEDAMAGE = 5
+
 var magicBallResource = preload("res://game/projectiles/MagicBall.tscn")
 
 var velocity
@@ -40,6 +42,7 @@ onready var teleportAnimationPlayer = $EffectAnimationPlayer
 onready var bossHealthAssembly = $CanvasLayer/Control/Boss
 onready var bossHealthBar = $CanvasLayer/Control/Boss/BossHealth
 onready var pauseMenu = $PauseMenu
+onready var levelMenu = $LevelMenu
 
 
 export var freezePlayer = false setget setFreezePlayer
@@ -56,13 +59,24 @@ var isBlocking = false
 var currentSpeed = SPEED
 
 # levelpoints
-var staminaLevel = 0
-var manaLevel = 0
+var healthLevel = 0
+var staminaLevel = 0 
+var manaLevel = 0 
+var strengthLevel = 0
+var magicLevel = 0
+var remainingLevelPoints = 10
 
+# max Character Stats
+var healthMax = 100 + healthLevel * 20
 var staminaMax = 100 + staminaLevel * 20
-var stamina = staminaMax
 var manaMax = 100 + manaLevel * 20
+
+#character stats
+var health = healthMax
+var stamina = staminaMax
 var mana = manaMax
+var strengthModifier = 0.2 * strengthLevel
+var magicModifier = 0.2 * magicLevel
 
 func _ready():
 	level = get_parent()
@@ -77,6 +91,8 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("enemies", "setPlayer", self)
 	get_tree().call_group("collectibles", "setPlayer", self)
+	get_tree().call_group("interactable", "setPlayer", self)
+	levelMenu.setPlayer(self)
 	tooltip.text = ""
 	clearDialogue()
 	colorrect.color = Color(0,0,0,0)
@@ -96,10 +112,12 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	elif Input.is_action_just_pressed("reset") or (dead and Input.is_action_just_pressed("actualReset")):
-		global.setPlayerHealth(global.MAX_HP)
+		health = healthMax
+		stamina = staminaMax
+		mana = manaMax
 		global.setBossHealth(global.BOSS_MAX_HP)
 		get_tree().reload_current_scene()
-		
+
 	if dead:
 		return
 
@@ -220,6 +238,13 @@ func hasEnoughStamina(s):
 
 func hasEnoughMana(m):
 	return mana >= m
+
+func addHealth(h):
+	health += h
+	health = clamp(health, 0, healthMax)
+	updateHud()
+	if health == 0:
+		die()
 	
 func addStamina(s):
 	stamina += s
@@ -236,7 +261,6 @@ func doSlashBackOrReturn():
 	if not hasEnoughStamina(staminaCost):
 		animationPlayer.play("leftReturn")
 		return
-	addStamina(-staminaCost)
 	
 	if Input.is_action_pressed("slash"):
 		animationPlayer.play("slashBack")
@@ -250,7 +274,6 @@ func doSlashOrReturn():
 	if not hasEnoughStamina(staminaCost):
 		animationPlayer.play("rightReturn")
 		return
-	addStamina(-staminaCost)
 	
 	if Input.is_action_pressed("slash"):
 		animationPlayer.play("slash")
@@ -267,6 +290,7 @@ func shoot():
 	magicBall.translation.y = MAGICBALL_HEIGHT
 	magicBall.setSource(self)
 	magicBall.setVelocity(direction * MAGICBALL_SPEED)
+	magicBall.setMagicModifier(magicModifier)
 	get_parent().get_parent().add_child(magicBall)
 	animationPlayer.play("rightReturn")
 
@@ -278,7 +302,8 @@ func _on_SwordArea_area_entered(area):
 	if target == self:
 		return
 	if target.has_method("slash"):
-		target.slash()
+		var damage = SLASH_BASEDAMAGE + strengthModifier * SLASH_BASEDAMAGE
+		target.slash(damage)
 
 func _on_KickArea_area_entered(area):
 	var target = area.get_parent()
@@ -312,10 +337,8 @@ func damage(d: int):
 		
 	blood.amount = BLOOD_SCALE * d
 	cameraAnimationPlayer.play("take_damage")
-	global.playerHealth -= d
-	if global.playerHealth <= 0:
-		die()
-	updateHud()
+	
+	addHealth(-d)
 
 func die():
 	dead = true
@@ -329,7 +352,7 @@ func updateHud():
 	crest3.visible = global.havePiece(2)
 	redkey.visible = level.has_method("playerHasKey") and level.playerHasKey(0)
 	bluekey.visible = level.has_method("playerHasKey") and level.playerHasKey(1)
-	var hpPercent = float(global.playerHealth)/float(global.MAX_HP)
+	var hpPercent = float(health)/float(healthMax)
 	healthbar.rect_scale = Vector2(hpPercent, 1)
 	var staminaPercent = float(stamina)/float(staminaMax)
 	staminaBar.rect_scale = Vector2(staminaPercent, 1)
@@ -353,6 +376,9 @@ func playDialogue(s):
 	crosshair.visible = false
 	dialogue.visible = true
 	dialoguePlayer.play("print")
+
+func openLevelMenu():
+	levelMenu.openLevelMenu()
 
 func teleportHome():
 	teleportAnimationPlayer.play("teleport")

@@ -51,8 +51,8 @@ func setPlayer(p):
 
 func kick(_direction):
 	damage(0)
-func slash():
-	damage(5)
+func slash(d):
+	damage(d)
 func stab():
 	damage(5)
 	

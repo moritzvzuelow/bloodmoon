@@ -22,9 +22,7 @@ func _on_PickupArea_area_entered(area):
 	var thing = area.get_parent()
 	if thing != player:
 		return
-	if global.playerHealth >= global.MAX_HP:
-		return
-	global.setPlayerHealth(global.playerHealth + POTION_HP)
+	player.addHealth(POTION_HP)
 	player.playHealthPickupAnim()
 	player.updateHud()
 	queue_free()

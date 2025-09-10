@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/audio/credits.wav" type="AudioStream" id=2]
 [ext_resource path="res://game/PauseMenu.gd" type="Script" id=3]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 10
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
@@ -38,7 +38,7 @@ margin_top = 30.0
 margin_right = 381.0
 margin_bottom = 130.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "-- PAUSED --
 Press ESC to resume.   Press ENTER to QUIT."
 align = 1
@@ -60,7 +60,7 @@ margin_top = 110.0
 margin_right = 381.0
 margin_bottom = 140.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Mouse Sensitivity"
 align = 1
 valign = 1

@@ -4,12 +4,16 @@ const DAMAGE = 10
 
 var velocity = Vector3()
 var source
+var magicModifier
 
 func setSource(s):
 	source = s
 
 func setVelocity(v):
 	velocity = v
+
+func setMagicModifier(d):
+	magicModifier = d
 
 func _ready():
 	$CollisionShape.disabled = true
@@ -27,5 +31,5 @@ func doHit(collider):
 	if collider == source or collider.is_in_group("obstacles"):
 		return
 	if collider.has_method("damage"):
-		collider.damage(DAMAGE)
+		collider.damage(DAMAGE + magicModifier * DAMAGE)
 	queue_free() #delete self

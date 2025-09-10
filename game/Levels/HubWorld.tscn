@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://game/environment/floors.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://game/environment/StreetLamp.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/world/stoneherringbone.png" type="Texture" id=13]
 [ext_resource path="res://assets/world/grass.png" type="Texture" id=14]
 [ext_resource path="res://assets/audio/hubworld.wav" type="AudioStream" id=15]
+[ext_resource path="res://game/environment/altar.tscn" type="PackedScene" id=16]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 8 )
@@ -314,3 +315,6 @@ volume_db = -16.0
 autoplay = true
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+
+[node name="altar" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64443, 0.956781, -6.95064 )

@@ -129,12 +129,12 @@ func kick(direction):
 		animationPlayer.play("demonKicked")
 	state = KICKED
 	
-func slash():
+func slash(d):
 	if blocking:
 		riposte()
 		# TODO return somtehing to make the player staggered for a second
 	else:
-		damage(5)
+		damage(d)
 func stab():
 	if blocking:
 		riposte()

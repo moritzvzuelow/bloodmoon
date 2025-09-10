@@ -61,8 +61,8 @@ func kick(direction):
 	animationPlayer.play("kicked")
 	state = KICKED
 	
-func slash():
-	damage(5)
+func slash(d):
+	damage(d)
 
 func stab():
 	damage(2)

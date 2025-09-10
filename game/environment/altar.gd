@@ -1,0 +1,18 @@
+extends Spatial
+
+
+var player
+
+func setPlayer(p):
+	player = p
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	add_to_group("interactable")
+
+func use():
+	player.openLevelMenu()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+	#pass

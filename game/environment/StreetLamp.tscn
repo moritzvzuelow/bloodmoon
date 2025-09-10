@@ -28,4 +28,3 @@ shadow_enabled = true
 transform = Transform( 0.1, 0, 0, 0, 0.5, 0, 0, 0, 0.1, 0, -0.139804, 0 )
 cast_shadow = 3
 mesh = SubResource( 2 )
-material/0 = null
