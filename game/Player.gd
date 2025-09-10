@@ -9,13 +9,13 @@ const MAGICBALL_START_DISTANCE = 1
 const MAGICBALL_SPEED = 10
 const MAGICBALL_HEIGHT = 0.75
 
-const SLASH_BASEDAMAGE = 5
-
 var magicBallResource = preload("res://game/projectiles/MagicBall.tscn")
 
 var velocity
 
 onready var global = get_node("/root/Global")
+onready var playerStats = get_node("/root/PlayerStats")
+
 
 onready var head = $Head
 onready var rayCast = $Head/RayCast
@@ -58,26 +58,6 @@ var mouseSense = .0
 var isBlocking = false
 var currentSpeed = SPEED
 
-# levelpoints
-var healthLevel = 0
-var staminaLevel = 0 
-var manaLevel = 0 
-var strengthLevel = 0
-var magicLevel = 0
-var remainingLevelPoints = 10
-
-# max Character Stats
-var healthMax = 100 + healthLevel * 20
-var staminaMax = 100 + staminaLevel * 20
-var manaMax = 100 + manaLevel * 20
-
-#character stats
-var health = healthMax
-var stamina = staminaMax
-var mana = manaMax
-var strengthModifier = 0.2 * strengthLevel
-var magicModifier = 0.2 * magicLevel
-
 func _ready():
 	level = get_parent()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -91,8 +71,7 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("enemies", "setPlayer", self)
 	get_tree().call_group("collectibles", "setPlayer", self)
-	get_tree().call_group("interactable", "setPlayer", self)
-	levelMenu.setPlayer(self)
+	get_tree().call_group("interactables", "setPlayer", self)
 	tooltip.text = ""
 	clearDialogue()
 	colorrect.color = Color(0,0,0,0)
@@ -112,9 +91,9 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	elif Input.is_action_just_pressed("reset") or (dead and Input.is_action_just_pressed("actualReset")):
-		health = healthMax
-		stamina = staminaMax
-		mana = manaMax
+		playerStats.health = playerStats.healthMax
+		playerStats.stamina = playerStats.staminaMax
+		playerStats.mana = playerStats.manaMax
 		global.setBossHealth(global.BOSS_MAX_HP)
 		get_tree().reload_current_scene()
 
@@ -194,12 +173,23 @@ func startSlash():
 	stopBlock()
 	animationPlayer.play("slashWindup")
 
-func doSlash():
+func doSlash(ret = false):
 	var staminaCost = 30
 	if not hasEnoughStamina(staminaCost):
+		if ret:
+			animationPlayer.play("rightReturn")
 		return
 	addStamina(-staminaCost)
 	animationPlayer.play("slash")
+
+func doSlashBack(ret=false):
+	var staminaCost = 30
+	if not hasEnoughStamina(staminaCost):
+		if ret:
+			animationPlayer.play("leftReturn")
+		return
+	addStamina(-staminaCost)
+	animationPlayer.play("slashBack")
 	
 func doBlock():
 	if not hasEnoughStamina(20):
@@ -234,51 +224,38 @@ func stopBlock():
 	sprite.frame = 0
 	
 func hasEnoughStamina(s):
-	return stamina >= s
+	return playerStats.hasEnoughStamina(s)
 
 func hasEnoughMana(m):
-	return mana >= m
+	return playerStats.hasEnoughMana(m)
 
 func addHealth(h):
-	health += h
-	health = clamp(health, 0, healthMax)
+	playerStats.addHealth(h)
 	updateHud()
-	if health == 0:
+	if playerStats.isDead():
 		die()
 	
 func addStamina(s):
-	stamina += s
-	stamina = clamp(stamina, 0, staminaMax)
+	playerStats.addStamina(s)
 	updateHud()
 
 func addMana(m):
-	mana += m
-	mana = clamp(mana, 0, manaMax)
+	playerStats.addMana(m)
 	updateHud()
 	
 func doSlashBackOrReturn():
-	var staminaCost = 30
-	if not hasEnoughStamina(staminaCost):
-		animationPlayer.play("leftReturn")
-		return
-	
 	if Input.is_action_pressed("slash"):
-		animationPlayer.play("slashBack")
+		doSlashBack(true)
 	elif Input.is_action_pressed("kick"):
-		animationPlayer.play("kick")
+		doKick()
 	else:
 		animationPlayer.play("leftReturn")
 
 func doSlashOrReturn():
-	var staminaCost = 30
-	if not hasEnoughStamina(staminaCost):
-		animationPlayer.play("rightReturn")
-		return
-	
 	if Input.is_action_pressed("slash"):
-		animationPlayer.play("slash")
+		doSlash(true)
 	elif Input.is_action_pressed("kick"):
-		animationPlayer.play("kick")
+		doKick()
 	else:
 		animationPlayer.play("rightReturn")
 
@@ -290,7 +267,7 @@ func shoot():
 	magicBall.translation.y = MAGICBALL_HEIGHT
 	magicBall.setSource(self)
 	magicBall.setVelocity(direction * MAGICBALL_SPEED)
-	magicBall.setMagicModifier(magicModifier)
+	magicBall.setMagicDamage(playerStats.magicDamage)
 	get_parent().get_parent().add_child(magicBall)
 	animationPlayer.play("rightReturn")
 
@@ -302,7 +279,7 @@ func _on_SwordArea_area_entered(area):
 	if target == self:
 		return
 	if target.has_method("slash"):
-		var damage = SLASH_BASEDAMAGE + strengthModifier * SLASH_BASEDAMAGE
+		var damage = playerStats.physicalDamage
 		target.slash(damage)
 
 func _on_KickArea_area_entered(area):
@@ -352,11 +329,11 @@ func updateHud():
 	crest3.visible = global.havePiece(2)
 	redkey.visible = level.has_method("playerHasKey") and level.playerHasKey(0)
 	bluekey.visible = level.has_method("playerHasKey") and level.playerHasKey(1)
-	var hpPercent = float(health)/float(healthMax)
+	var hpPercent = playerStats.getHealthPercent()
 	healthbar.rect_scale = Vector2(hpPercent, 1)
-	var staminaPercent = float(stamina)/float(staminaMax)
+	var staminaPercent = playerStats.getStaminaPercent()
 	staminaBar.rect_scale = Vector2(staminaPercent, 1)
-	var manaPercent = float(mana)/float(manaMax)
+	var manaPercent = playerStats.getManaPercent()
 	manaBar.rect_scale = Vector2(manaPercent, 1)
 	var bossHpPercent = float(global.bossHealth)/float(global.BOSS_MAX_HP)
 	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)

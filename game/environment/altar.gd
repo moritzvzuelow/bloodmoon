@@ -8,7 +8,7 @@ func setPlayer(p):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_to_group("interactable")
+	add_to_group("interactables")
 
 func use():
 	player.openLevelMenu()

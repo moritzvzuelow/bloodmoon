@@ -1,10 +1,8 @@
 extends KinematicBody
 
-const DAMAGE = 10
-
 var velocity = Vector3()
 var source
-var magicModifier
+var magicDamage
 
 func setSource(s):
 	source = s
@@ -12,8 +10,8 @@ func setSource(s):
 func setVelocity(v):
 	velocity = v
 
-func setMagicModifier(d):
-	magicModifier = d
+func setMagicDamage(d):
+	magicDamage = d
 
 func _ready():
 	$CollisionShape.disabled = true
@@ -31,5 +29,5 @@ func doHit(collider):
 	if collider == source or collider.is_in_group("obstacles"):
 		return
 	if collider.has_method("damage"):
-		collider.damage(DAMAGE + magicModifier * DAMAGE)
+		collider.damage(magicDamage)
 	queue_free() #delete self

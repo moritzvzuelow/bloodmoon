@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+onready var playerStats = get_node("/root/PlayerStats")
+
 onready var control = $Control
 onready var levelPointsLabel = $Control/LevelPoints/LevelPointsLabel
 onready var healthSlider = $Control/Level/Health/HealthSlider
@@ -8,12 +10,9 @@ onready var manaSlider = $Control/Level/Mana/ManaSlider
 onready var strengthSlider = $Control/Level/Strength/StrengthSlider
 onready var magicSlider = $Control/Level/Magic/MagicSlider
 
-var player
 var paused = false
 var opened = false
 
-func setPlayer(p):
-	player = p
 
 func _ready():
 	control.visible = false
@@ -34,27 +33,57 @@ func closeLevelMenu():
 func openLevelMenu():
 	opened = true
 	get_tree().paused = true
-	levelPointsLabel.text = "Levelpoints: %s" % player.remainingLevelPoints
+	updateLevelpointsLabel()
 	control.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-func _on_MagicSlider_value_changed(value:float):
-	if (value - player.magicLevel) > player.remainingLevelPoints:
-		player.magicLevel = player.remainingLevelPoints
-		magicSlider.value = player.remainingLevelPoints
-		player.remainingLevelPoints = 0
+func getUpdatedLevel(old_level, new_level):
+	var actual_level = 0
+	if new_level > old_level:
+		var diff = new_level - old_level
+		diff = clamp(diff, 0, playerStats.remainingLevelPoints)
+		actual_level = old_level + diff
+		playerStats.remainingLevelPoints -= diff
 	else:
-		player.magicLevel = value
-		player.remainingLevelPoints -= value - player.magicLevel
+		var diff = old_level - new_level
+		playerStats.remainingLevelPoints += diff
+		actual_level = new_level
+	return actual_level
 
-func _on_StrengthSlider_value_changed(value:float):
-	player.strengthLevel = value
+func updateLevelpointsLabel():
+	levelPointsLabel.text = "Levelpoints: %s" % playerStats.remainingLevelPoints
 
-func _on_ManaSlider_value_changed(value:float):
-	player.manaLevel = value
-
-func _on_StaminaSlider_value_changed(value:float):
-	player.staminaLevel = value
+func _on_MagicSlider_value_changed(value:float):
+	var actualLevel = getUpdatedLevel(playerStats.magicLevel, value)
+	playerStats.magicLevel = actualLevel
+	magicSlider.value = actualLevel
+	playerStats.updateMagicDamage()
+	updateLevelpointsLabel()
 
 func _on_HealthSlider_value_changed(value:float):
-	player.healthLevel = value
+	var actualLevel = getUpdatedLevel(playerStats.healthLevel, value)
+	playerStats.healthLevel = actualLevel
+	healthSlider.value = actualLevel
+	playerStats.updateHealthMax()
+	updateLevelpointsLabel()
+
+func _on_StaminaSlider_value_changed(value:float):
+	var actualLevel = getUpdatedLevel(playerStats.staminaLevel, value)
+	playerStats.staminaLevel = actualLevel
+	staminaSlider.value = actualLevel
+	playerStats.updateStaminaMax()
+	updateLevelpointsLabel()
+
+func _on_ManaSlider_value_changed(value:float):
+	var actualLevel = getUpdatedLevel(playerStats.manaLevel, value)
+	playerStats.manaLevel = actualLevel
+	manaSlider.value = actualLevel
+	playerStats.updateManaMax()
+	updateLevelpointsLabel()
+
+func _on_StrengthSlider_value_changed(value:float):
+	var actualLevel = getUpdatedLevel(playerStats.strengthLevel, value)
+	playerStats.strengthLevel = actualLevel
+	strengthSlider.value = actualLevel
+	playerStats.updatePhysicalDamage()
+	updateLevelpointsLabel()

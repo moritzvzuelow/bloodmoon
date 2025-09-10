@@ -770,7 +770,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 55
-frame = 17
+frame = 6
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
