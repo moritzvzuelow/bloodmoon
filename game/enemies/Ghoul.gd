@@ -150,6 +150,7 @@ func die():
 	hurtboxShape.queue_free()
 	collisionShape.queue_free()
 	state = DEAD
+	player.receiveMoons(20)
 
 func getPathToPlayer():
 	path = nav.get_simple_path(global_transform.origin, player.translation)

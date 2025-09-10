@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fonts/IBMPlexMono-Medium.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://game/LevelMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/moons.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 15
@@ -17,6 +18,12 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 12
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 10
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
@@ -180,15 +187,38 @@ rounded = true
 scale = Vector2( 5, 5 )
 
 [node name="Button" type="Button" parent="Control/Levelup"]
-margin_left = 33.4
-margin_top = 182.8
-margin_right = 345.4
-margin_bottom = 209.8
+margin_left = 33.0
+margin_top = 183.0
+margin_right = 292.0
+margin_bottom = 210.0
 custom_fonts/font = SubResource( 1 )
-text = "Level Up"
+text = "Level Up (100)"
+
+[node name="Moons" type="Node2D" parent="Control"]
+position = Vector2( -425, -220 )
+scale = Vector2( 6, 6 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Moons"]
+margin_left = 328.2
+margin_top = 192.4
+margin_right = 392.2
+margin_bottom = 256.4
+rect_scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="Control/Moons"]
+margin_left = 346.2
+margin_top = 193.0
+margin_right = 382.2
+margin_bottom = 207.0
+custom_fonts/font = SubResource( 4 )
+text = "500000"
+align = 1
+valign = 1
 
 [connection signal="value_changed" from="Control/Level/Health/HealthSlider" to="." method="_on_HealthSlider_value_changed"]
 [connection signal="value_changed" from="Control/Level/Stamina/StaminaSlider" to="." method="_on_StaminaSlider_value_changed"]
 [connection signal="value_changed" from="Control/Level/Mana/ManaSlider" to="." method="_on_ManaSlider_value_changed"]
 [connection signal="value_changed" from="Control/Level/Strength/StrengthSlider" to="." method="_on_StrengthSlider_value_changed"]
 [connection signal="value_changed" from="Control/Level/Magic/MagicSlider" to="." method="_on_MagicSlider_value_changed"]
+[connection signal="pressed" from="Control/Levelup/Button" to="." method="_on_Button_pressed"]

@@ -174,6 +174,7 @@ func die():
 	collisionShape.queue_free()
 	light.queue_free()
 	state = DEAD
+	player.receiveMoons(40)
 	if level.has_method("reportDeath"):
 		level.reportDeath(self)
 

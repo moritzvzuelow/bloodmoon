@@ -9,6 +9,8 @@ onready var staminaSlider = $Control/Level/Stamina/StaminaSlider
 onready var manaSlider = $Control/Level/Mana/ManaSlider
 onready var strengthSlider = $Control/Level/Strength/StrengthSlider
 onready var magicSlider = $Control/Level/Magic/MagicSlider
+onready var moonsLabel = $Control/Moons/Label
+onready var button = $Control/Levelup/Button
 
 var paused = false
 var opened = false
@@ -34,6 +36,9 @@ func openLevelMenu():
 	opened = true
 	get_tree().paused = true
 	updateLevelpointsLabel()
+	updateBars()
+	updateMoonsLabel()
+	updateButton()
 	control.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
@@ -52,6 +57,22 @@ func getUpdatedLevel(old_level, new_level):
 
 func updateLevelpointsLabel():
 	levelPointsLabel.text = "Levelpoints: %s" % playerStats.remainingLevelPoints
+
+func updateBars():
+	healthSlider.value = playerStats.healthLevel
+	staminaSlider.value = playerStats.staminaLevel
+	manaSlider.value = playerStats.manaLevel
+	strengthSlider.value = playerStats.strengthLevel
+	magicSlider.value = playerStats.magicLevel
+
+func updateMoonsLabel():
+	moonsLabel.text = str(playerStats.moons)
+
+func updateButton():
+	if playerStats.levelUpPossible():
+		button.disabled = false
+	else:
+		button.disabled = true
 
 func _on_MagicSlider_value_changed(value:float):
 	var actualLevel = getUpdatedLevel(playerStats.magicLevel, value)
@@ -87,3 +108,9 @@ func _on_StrengthSlider_value_changed(value:float):
 	strengthSlider.value = actualLevel
 	playerStats.updatePhysicalDamage()
 	updateLevelpointsLabel()
+
+func _on_Button_pressed():
+	playerStats.levelup()
+	updateLevelpointsLabel()
+	updateMoonsLabel()
+	updateButton()

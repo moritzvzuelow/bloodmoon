@@ -22,8 +22,6 @@ func _on_PickupArea_area_entered(area):
 	var thing = area.get_parent()
 	if thing != player:
 		return
-	if player.mana >= player.manaMax:
-		return
 	player.addMana(POTION_MP)
 	player.playManaPickupAnim()
 	player.updateHud()

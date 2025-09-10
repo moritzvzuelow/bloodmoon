@@ -31,6 +31,7 @@ onready var manaBar = $CanvasLayer/Control/Mana/ManaBar
 onready var crest1 = $CanvasLayer/Control/crests/Crest1
 onready var crest2 = $CanvasLayer/Control/crests/Crest2
 onready var crest3 = $CanvasLayer/Control/crests/Crest3
+onready var moonLabel = $CanvasLayer/Control/Moons/Label
 onready var tooltip = $CanvasLayer/Control/Pixelator/tooltip
 onready var dialogue = $CanvasLayer/Control/Pixelator/Dialogue
 onready var dialoguePlayer = $DialogueAnimationPlayer
@@ -320,6 +321,7 @@ func damage(d: int):
 func die():
 	dead = true
 	blood.amount = BLOOD_SCALE * 100
+	receiveMoons(10)
 	animationPlayer.play("rightExit")
 	cameraAnimationPlayer.play("die")
 	
@@ -335,6 +337,7 @@ func updateHud():
 	staminaBar.rect_scale = Vector2(staminaPercent, 1)
 	var manaPercent = playerStats.getManaPercent()
 	manaBar.rect_scale = Vector2(manaPercent, 1)
+	moonLabel.text = str(playerStats.moons)
 	var bossHpPercent = float(global.bossHealth)/float(global.BOSS_MAX_HP)
 	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)
 	if global.inBossFight:
@@ -353,6 +356,9 @@ func playDialogue(s):
 	crosshair.visible = false
 	dialogue.visible = true
 	dialoguePlayer.play("print")
+
+func receiveMoons(m):
+	playerStats.addMoons(m)
 
 func openLevelMenu():
 	levelMenu.openLevelMenu()

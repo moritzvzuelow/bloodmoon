@@ -216,6 +216,7 @@ func transform():
 func die():
 	state = WIZARD
 	animationPlayer.play("demonDie")
+	player.receiveMoons(100)
 	player.fadeToFinish()
 
 func getVectorToPlayer():

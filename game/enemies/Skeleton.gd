@@ -148,6 +148,7 @@ func hurt():
 
 func die():
 	animationPlayer.play("die")
+	player.receiveMoons(20)
 	hurtboxShape.disabled = true
 	state = DEAD
 

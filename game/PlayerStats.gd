@@ -6,6 +6,8 @@ const BASE_MANA = 100
 const BASE_PHYSICAL_DAMAGE = 5
 const BASE_MAGICAL_DAMAGE = 10
 
+const LEVELUP_COST = 100
+
 # levelpoints
 var healthLevel = 0
 var staminaLevel = 0 
@@ -23,8 +25,10 @@ var manaMax = BASE_MANA
 var health = healthMax
 var stamina = staminaMax
 var mana = manaMax
-var physicalDamage = 0.2 * strengthLevel
-var magicDamage = 0.2 * magicLevel
+var physicalDamage = BASE_PHYSICAL_DAMAGE + 0.2 * strengthLevel
+var magicDamage = BASE_MAGICAL_DAMAGE + 0.2 * magicLevel
+
+var moons = 150
 
 
 func hasEnoughStamina(s):
@@ -48,6 +52,10 @@ func addMana(m):
 	mana += m
 	mana = clamp(mana, 0, manaMax)
 
+func addMoons(m):
+	moons += m
+	moons = clamp(moons, 0, 999999)
+
 func getHealthPercent():
 	return float(health)/float(healthMax)
 
@@ -58,16 +66,34 @@ func getManaPercent():
 	return float(mana)/float(manaMax)
 
 func updateHealthMax():
-	healthMax = BASE_HEALTH + healthLevel * 20
+	var toAdd = healthLevel * 20
+	var healthPercent = getHealthPercent()
+	healthMax = BASE_HEALTH + toAdd
+	health = int(healthPercent * healthMax)
 
 func updateStaminaMax():
-	staminaMax = BASE_STAMINA + staminaLevel * 20
+	var toAdd = staminaLevel * 20
+	var staminaPercent = getStaminaPercent()
+	staminaMax = BASE_STAMINA + toAdd
+	stamina = int(staminaPercent * staminaMax)
 
 func updateManaMax():
-	manaMax = BASE_MANA + manaLevel * 20
+	var toAdd = manaLevel * 20
+	var manaPercent = getManaPercent()
+	manaMax = BASE_MANA + toAdd
+	mana = int(manaPercent * manaMax)
 
 func updatePhysicalDamage():
 	physicalDamage = BASE_PHYSICAL_DAMAGE + 0.2 * BASE_PHYSICAL_DAMAGE * strengthLevel
 
 func updateMagicDamage():
 	magicDamage = BASE_MAGICAL_DAMAGE + 0.2 * BASE_MAGICAL_DAMAGE * magicLevel
+
+func levelUpPossible():
+	return moons >= LEVELUP_COST
+
+func levelup():
+	if not levelUpPossible():
+		return
+	remainingLevelPoints += 1
+	moons -= LEVELUP_COST
