@@ -6,7 +6,7 @@ const BASE_MANA = 100
 const BASE_PHYSICAL_DAMAGE = 5
 const BASE_MAGICAL_DAMAGE = 10
 
-const LEVELUP_COST = 100
+const BASE_LEVELUP_COST = 100
 
 # levelpoints
 var healthLevel = 10
@@ -28,6 +28,7 @@ var mana = manaMax
 var physicalDamage = BASE_PHYSICAL_DAMAGE + 0.2 * strengthLevel
 var magicDamage = BASE_MAGICAL_DAMAGE + 0.2 * magicLevel
 
+var levelup_cost = BASE_LEVELUP_COST
 var moons = 150
 
 
@@ -90,13 +91,14 @@ func updateMagicDamage():
 	magicDamage = BASE_MAGICAL_DAMAGE + 0.2 * BASE_MAGICAL_DAMAGE * magicLevel
 
 func levelUpPossible():
-	return moons >= LEVELUP_COST
+	return moons >= levelup_cost
 
 func levelup():
 	if not levelUpPossible():
 		return
 	remainingLevelPoints += 1
-	moons -= LEVELUP_COST
+	moons -= levelup_cost
+	levelup_cost = int(levelup_cost * 1.5)
 
 func isHealthMax():
 	return health == healthMax

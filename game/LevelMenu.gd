@@ -69,6 +69,7 @@ func updateMoonsLabel():
 	moonsLabel.text = str(playerStats.moons)
 
 func updateButton():
+	button.text = "Level Up (%s)" % playerStats.levelup_cost
 	if playerStats.levelUpPossible():
 		button.disabled = false
 	else:
