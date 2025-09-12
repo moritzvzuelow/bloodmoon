@@ -1,6 +1,7 @@
 extends KinematicBody
 
-var player
+const BOSS_MAX_HP = 100
+
 var fireballResource = preload("res://game/projectiles/Fireball.tscn")
 
 const PROJECTILE_START_DISTANCE = 1
@@ -41,12 +42,12 @@ onready var nav = get_parent()
 onready var level = get_parent().get_parent()
 onready var lichHurtbox = $Area/CollisionShape
 onready var demonHurtbox = $demonHurtbox/CollisionShape
-onready var hurtAnimator = $HurtAnimator
 onready var demonHitbox = $demonHitbox/CollisionShape
 onready var sprite = $Sprite3D
 onready var light = $GreenLight
 onready var particles = $Particles
 onready var kyle = $kyle
+onready var player
 
 func _ready():
 	add_to_group("enemies")
@@ -55,6 +56,8 @@ func _ready():
 	light.visible = false
 	particles.visible = global.particlesEnabled
 	particles.emitting = false
+	global.setBossHealthMax(BOSS_MAX_HP)
+	global.setBossHealth(BOSS_MAX_HP)
 
 func setPlayer(p):
 	player = p
@@ -76,8 +79,6 @@ func _physics_process(_delta):
 	unitVecToPlayer.y = 0
 	unitVecToPlayer = unitVecToPlayer.normalized()
 	raycast.cast_to = translation + unitVecToPlayer * ATTACK_RANGE
-	
-	print(state)
 	
 	# State Machine
 	if state == WIZARD:
@@ -146,7 +147,7 @@ func riposte():
 	player.damage(10)
 	
 func damage(d):
-	global.bossHealth -= d
+	global.damageBoss(d)
 	player.updateHud()
 	if global.bossHealth <= 0:
 		if !isDemon:
@@ -167,7 +168,7 @@ func becomeDemon():
 	light.visible = true
 
 func replenishHealth():
-	global.bossHealth = global.BOSS_MAX_HP
+	global.bossHealth = BOSS_MAX_HP
 	
 func invuln(b: bool):
 	if b:
@@ -230,10 +231,10 @@ func shootOne(offsetFactor: float):
 	fireDirection.y = 0
 	fireDirection = fireDirection.normalized()
 	var arrow = fireballResource.instance()
+	arrow.setPlayer(player)
 	var sideDirection = Vector3(fireDirection.z, 0, fireDirection.x) * offsetFactor
 	arrow.translation = translation + fireDirection * PROJECTILE_START_DISTANCE + sideDirection * FIRING_WIDTH
 	arrow.translation.y = PROJECTILE_START_HEIGHT
-	arrow.setPlayer(player)
 	arrow.setVelocity(fireDirection * PROJECTILE_SPEED)
 	arrow.setSource(self)
 	get_parent().get_parent().add_child(arrow)

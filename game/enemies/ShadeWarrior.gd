@@ -12,6 +12,7 @@ const KICK_STRENGTH = 10
 const KICK_DECCEL = 10
 const DAMAGE = 10
 
+onready var global = get_node("/root/Global")
 onready var nav = get_parent()
 onready var player
 onready var animationPlayer = $AnimationPlayer
@@ -38,7 +39,6 @@ enum {
 var path = []
 var currentPathNode = 0
 var state
-var health = MAX_HEALTH
 var kickDirection = Vector3()
 var kickSpeed = 0
 var blocking = false
@@ -51,6 +51,9 @@ func _ready():
 	collisionShape.disabled = false
 	animationPlayer.play("idlemove")
 	level = get_parent().get_parent()
+	global.setBossHealthMax(MAX_HEALTH)
+	global.setBossHealth(MAX_HEALTH)
+	global.inBossFight = true
 
 func setPlayer(p):
 	player = p
@@ -80,8 +83,9 @@ func riposte():
 	pass
 	
 func damage(d):
-	health -= d
-	if health <= 0:
+	global.damageBoss(d)
+	player.updateHud()
+	if global.bossHealth <= 0:
 		die()
 	else:
 		animationPlayer.play("hurt")
@@ -177,6 +181,7 @@ func die():
 	player.receiveMoons(40)
 	if level.has_method("reportDeath"):
 		level.reportDeath(self)
+	global.inBossFight = false
 
 func getPathToPlayer():
 	path = nav.get_simple_path(global_transform.origin, player.translation)

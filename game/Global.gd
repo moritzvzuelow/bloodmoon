@@ -3,9 +3,10 @@ extends Node
 # GLOBAL GAME STATE SINGLETON FILE
 
 # Constants
-const BOSS_MAX_HP = 100
+
 
 # Global Vars
+export var bossHealthMax = 100 setget setBossHealthMax
 export var bossHealth = 100 setget setBossHealth
 var piece = [false, false, false]
 var tutorialDone = false
@@ -14,6 +15,12 @@ export var particlesEnabled = true
 
 func setBossHealth(h):
 	bossHealth = h
+
+func setBossHealthMax(h):
+	bossHealthMax = h
+
+func damageBoss(d):
+	bossHealth = clamp(bossHealth - d, 0, bossHealthMax)
 
 func getPiece(n):
 	piece[n] = true

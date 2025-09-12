@@ -95,8 +95,9 @@ func _physics_process(delta):
 		playerStats.health = playerStats.healthMax
 		playerStats.stamina = playerStats.staminaMax
 		playerStats.mana = playerStats.manaMax
-		global.setBossHealth(global.BOSS_MAX_HP)
+		global.setBossHealth(global.bossHealthMax)
 		global.resetPieces()
+		global.inBossFight = false
 		get_tree().change_scene("res://game/Levels/HubWorld.tscn")
 
 	if dead:
@@ -345,7 +346,7 @@ func updateHud():
 	var manaPercent = playerStats.getManaPercent()
 	manaBar.rect_scale = Vector2(manaPercent, 1)
 	moonLabel.text = str(playerStats.moons)
-	var bossHpPercent = float(global.bossHealth)/float(global.BOSS_MAX_HP)
+	var bossHpPercent = float(global.bossHealth)/float(global.bossHealthMax)
 	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)
 	if global.inBossFight:
 		bossHealthAssembly.visible = true
