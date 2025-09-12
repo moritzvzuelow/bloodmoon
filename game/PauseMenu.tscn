@@ -27,6 +27,7 @@ margin_bottom = 1080.0
 color = Color( 0, 0, 0, 0.333333 )
 
 [node name="Sprite" type="Sprite" parent="Control"]
+position = Vector2( 0, 100 )
 scale = Vector2( 5, 5 )
 __meta__ = {
 "_editor_description_": ""
@@ -40,7 +41,8 @@ margin_bottom = 130.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "-- PAUSED --
-Press ESC to resume.   Press ENTER to QUIT."
+Press ESC to resume.   Press ENTER to QUIT.
+Press C to see controls."
 align = 1
 valign = 1
 autowrap = true
@@ -48,7 +50,29 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="Controls" type="Label" parent="Control/Sprite"]
+margin_left = 3.0
+margin_top = -6.6
+margin_right = 381.0
+margin_bottom = 127.4
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "-- PAUSED --
+WASD: Move
+Left Click: Attack (Slash)
+Right Click: Block (can be held)
+E: Use
+F: Kick
+Q: Shoot Magicball
+Press C to go back"
+align = 1
+autowrap = true
+__meta__ = {
+"_editor_description_": ""
+}
+
 [node name="SensSprite" type="Sprite" parent="Control"]
+position = Vector2( 0, 200 )
 scale = Vector2( 5, 5 )
 __meta__ = {
 "_editor_description_": ""

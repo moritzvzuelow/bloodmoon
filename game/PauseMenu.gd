@@ -3,28 +3,36 @@ extends CanvasLayer
 
 onready var audio = $AudioStreamPlayer
 onready var control = $Control
+onready var buttons = $Control/Sprite/Buttons
+onready var controls = $Control/Sprite/Controls
 onready var sensSlider = $Control/SensSprite/HSlider
 
 var paused = false
 var opened = false
+var showingControls = false
 
 signal senseChanged(value)
 
 func _ready():
 	control.visible = false
+	controls.visible = false
 	audio.playing = false
 	pause_mode = Node.PAUSE_MODE_PROCESS
 	control.pause_mode = Node.PAUSE_MODE_PROCESS
+	buttons.pause_mode = Node.PAUSE_MODE_PROCESS
+	controls.pause_mode = Node.PAUSE_MODE_PROCESS
 	sensSlider.pause_mode = Node.PAUSE_MODE_PROCESS
 
 func _physics_process(_delta):
-	if get_tree().paused and Input.is_action_just_pressed("ui_accept"):
+	if get_tree().paused and Input.is_action_just_pressed("ui_accept") and not showingControls:
 		get_tree().quit()
-	elif Input.is_action_just_pressed("actualQuit"):
+	elif Input.is_action_just_pressed("actualQuit") and not showingControls:
 		if get_tree().paused and opened:
 			unpause()
 		elif not get_tree().paused and not opened:
 			pause()
+	elif Input.is_action_just_pressed("see_controls") and opened:
+		toggleShowControls()
 
 func unpause():
 	opened = false
@@ -39,6 +47,11 @@ func pause():
 	audio.playing = true
 	control.visible = true
 	get_tree().paused = true
+
+func toggleShowControls():
+	buttons.visible = !buttons.visible
+	controls.visible = !controls.visible
+	showingControls = !showingControls
 
 func _on_HSlider_value_changed(value):
 	emit_signal("senseChanged", value)
