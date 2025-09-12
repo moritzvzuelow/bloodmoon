@@ -22,8 +22,6 @@ func _on_PickupArea_area_entered(area):
 	var thing = area.get_parent()
 	if thing != player or player.isManaMax():
 		return
-	player.addMana(POTION_MP)
-	player.playManaPickupAnim()
-	player.updateHud()
+	player.pickupMana()
 	queue_free()
 

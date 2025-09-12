@@ -332,6 +332,18 @@ func die():
 	receiveMoons(10)
 	animationPlayer.play("rightExit")
 	cameraAnimationPlayer.play("die")
+
+func pickupHealth():
+	var potion_hp = playerStats.healthMax * 0.5
+	addHealth(potion_hp)
+	playHealthPickupAnim()
+	updateHud()
+
+func pickupMana():
+	var potion_mp = playerStats.manaMax * 0.5
+	addMana(potion_mp)
+	playManaPickupAnim()
+	updateHud()
 	
 func updateHud():
 	crest1.visible = global.havePiece(0)
