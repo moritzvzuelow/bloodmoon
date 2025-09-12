@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://assets/Greatsword_2.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://assets/audio/player-attack.wav" type="AudioStream" id=13]
 [ext_resource path="res://assets/audio/gulp.wav" type="AudioStream" id=14]
 [ext_resource path="res://game/LevelMenu.tscn" type="PackedScene" id=15]
-[ext_resource path="res://game/LevelMenu.gd" type="Script" id=16]
 [ext_resource path="res://assets/moons.png" type="Texture" id=17]
 
 [sub_resource type="CylinderShape" id=1]
@@ -777,7 +776,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 55
-frame = 6
+frame = 25
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -1030,7 +1029,6 @@ anims/teleport = SubResource( 26 )
 [node name="PauseMenu" parent="." instance=ExtResource( 3 )]
 
 [node name="LevelMenu" parent="." instance=ExtResource( 15 )]
-script = ExtResource( 16 )
 
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]

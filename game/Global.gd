@@ -20,3 +20,6 @@ func getPiece(n):
 
 func havePiece(n):
 	return piece[n]
+
+func resetPieces():
+	piece = [false, false, false]

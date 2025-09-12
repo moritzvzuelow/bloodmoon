@@ -96,7 +96,8 @@ func _physics_process(delta):
 		playerStats.stamina = playerStats.staminaMax
 		playerStats.mana = playerStats.manaMax
 		global.setBossHealth(global.BOSS_MAX_HP)
-		get_tree().reload_current_scene()
+		global.resetPieces()
+		get_tree().change_scene("res://game/Levels/HubWorld.tscn")
 
 	if dead:
 		return

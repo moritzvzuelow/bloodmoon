@@ -15,6 +15,8 @@ func _ready():
 	roof.visible = true
 	devlight.visible = false
 	gamelight.visible = true
+	bossReleased = false
+	bossGateClosed = false
 
 func _on_DoorTriggerArea_area_entered(area):
 	if area.get_parent() != player:
