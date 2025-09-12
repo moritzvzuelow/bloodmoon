@@ -97,3 +97,9 @@ func levelup():
 		return
 	remainingLevelPoints += 1
 	moons -= LEVELUP_COST
+
+func isHealthMax():
+	return health == healthMax
+
+func isManaMax():
+	return mana == manaMax

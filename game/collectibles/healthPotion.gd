@@ -20,7 +20,7 @@ func setPlayer(p):
 
 func _on_PickupArea_area_entered(area):
 	var thing = area.get_parent()
-	if thing != player:
+	if thing != player or player.isHealthMax():
 		return
 	player.addHealth(POTION_HP)
 	player.playHealthPickupAnim()

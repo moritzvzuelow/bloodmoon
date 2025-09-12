@@ -244,6 +244,12 @@ func addStamina(s):
 func addMana(m):
 	playerStats.addMana(m)
 	updateHud()
+
+func isHealthMax():
+	return playerStats.isHealthMax()
+
+func isManaMax():
+	return playerStats.isManaMax()
 	
 func doSlashBackOrReturn():
 	if Input.is_action_pressed("slash"):
