@@ -2,12 +2,12 @@ extends KinematicBody
 
 const SPEED = 5
 const ACCEL = 10
-const DASH_LENGTH = .75
 const BLOOD_SCALE = 5
-const FEATURE_FLAG_DASH = true
 const MAGICBALL_START_DISTANCE = 1
 const MAGICBALL_SPEED = 10
 const MAGICBALL_HEIGHT = 0.75
+const MAX_CHARGE_TIME = 2.0
+const CHARGE_THRESHOLD = 0.5
 
 var magicBallResource = preload("res://game/projectiles/MagicBall.tscn")
 
@@ -51,12 +51,13 @@ export var freezePlayer = false setget setFreezePlayer
 func setFreezePlayer(f):
 	freezePlayer = f
 
-var isDashing = false
-var dashRemaining = 0
 var dead = false
 var level
 var mouseSense = .0
 var isBlocking = false
+var chargeTime = .0
+var isCharging = false
+var chargePlayed = false
 var currentSpeed = SPEED
 
 func _ready():
@@ -112,20 +113,33 @@ func _physics_process(delta):
 	elif tooltip.text != "":
 		tooltip.text = ""
 	
-	if isIdle() or isBlocking:
-		if Input.is_action_pressed("slash"):
-			startSlash()
-		elif Input.is_action_just_pressed("kick"):
+	if isIdle() or isBlocking or isCharging:
+		if Input.is_action_just_pressed("attack"):
+			isCharging = true
+			chargeTime = 0.0
+			chargePlayed = false
+
+		elif Input.is_action_just_released("attack") and isCharging:
+			if chargeTime < CHARGE_THRESHOLD:
+				startSlash()
+			else:
+				doStab() 
+			isCharging = false
+		elif Input.is_action_just_pressed("kick") and not isCharging:
 			doKick()
-		elif Input.is_action_just_pressed("shoot"):
+		elif Input.is_action_just_pressed("shoot") and not isCharging:
 			doShoot()
-		elif Input.is_action_pressed("dash") and FEATURE_FLAG_DASH:
-			isDashing = true
-			dashRemaining = DASH_LENGTH
-			animationPlayer.play("dashStart")
+
+	if isCharging:
+		chargeTime += delta
+		chargeTime = min(chargeTime, MAX_CHARGE_TIME)
+		if chargeTime >= CHARGE_THRESHOLD and (!animationPlayer.is_playing() or isBlocking) and !chargePlayed:
 			stopBlock()
+			animationPlayer.play("chargeStab")
+			chargePlayed = true
+
 			
-	if isIdle() and not isBlocking:
+	if isIdle() and not isBlocking and not isCharging:
 		addStamina(playerStats.staminaRecovery * delta)
 		if Input.is_action_just_pressed("block"):
 			doBlock()
@@ -147,19 +161,9 @@ func _physics_process(delta):
 		if Input.is_action_pressed("move_right"):
 			moveVector.x += 1
 
-	moveVector = moveVector.normalized() if !isDashing else Vector3(0,0,-2)
+	moveVector = moveVector.normalized()
 	moveVector = moveVector.rotated(Vector3(0, 1, 0), rotation.y)
 	velocity = lerp(velocity, moveVector * currentSpeed, ACCEL * delta)
-
-	if isDashing:
-		var dashTarget = rayCastClose.get_collider()
-		if dashTarget and !dashTarget.is_in_group("projectiles"):
-			doStab(dashTarget)
-		else:
-			dashRemaining -= delta
-			if dashRemaining <=0:
-				animationPlayer.play("dashMiss")
-				isDashing = false
 
 	move_and_slide(velocity)
 
@@ -176,6 +180,9 @@ func startSlash():
 	stopBlock()
 	animationPlayer.play("slashWindup")
 
+func chargeStab():
+	animationPlayer.play("stab")
+
 func doSlash(ret = false):
 	var staminaCost = 30
 	if not hasEnoughStamina(staminaCost):
@@ -184,6 +191,14 @@ func doSlash(ret = false):
 		return
 	addStamina(-staminaCost)
 	animationPlayer.play("slash")
+
+func doStab():
+	var staminaCost = 50
+	if not hasEnoughStamina(staminaCost):
+		animationPlayer.play("rightReturn")
+		return
+	addStamina(-staminaCost)
+	animationPlayer.play("stab")
 
 func doSlashBack(ret=false):
 	var staminaCost = 30
@@ -253,7 +268,7 @@ func isManaMax():
 	return playerStats.isManaMax()
 	
 func doSlashBackOrReturn():
-	if Input.is_action_pressed("slash"):
+	if Input.is_action_pressed("attack"):
 		doSlashBack(true)
 	elif Input.is_action_pressed("kick"):
 		doKick()
@@ -261,7 +276,7 @@ func doSlashBackOrReturn():
 		animationPlayer.play("leftReturn")
 
 func doSlashOrReturn():
-	if Input.is_action_pressed("slash"):
+	if Input.is_action_pressed("attack"):
 		doSlash(true)
 	elif Input.is_action_pressed("kick"):
 		doKick()
@@ -280,16 +295,19 @@ func shoot():
 	get_parent().get_parent().add_child(magicBall)
 	animationPlayer.play("rightReturn")
 
-func doDash():
-	animationPlayer.play("dash")
-
 func _on_SwordArea_area_entered(area):
 	var target = area.get_parent()
 	if target == self:
 		return
 	if target.has_method("slash"):
-		var damage = playerStats.physicalDamage
-		target.slash(damage)
+		target.slash(playerStats.physicalDamageSlash)
+
+func _on_StabArea_area_entered(area:Area):
+	var target = area.get_parent()
+	if target == self:
+		return
+	if target.has_method("stab"):
+		target.stab(playerStats.physicalDamageStab)
 
 func _on_KickArea_area_entered(area):
 	var target = area.get_parent()
@@ -300,14 +318,7 @@ func _on_KickArea_area_entered(area):
 
 func tellBlockersToBlock():
 	get_tree().call_group("blockers", "playerAttacking")
-
-# TODO use a raycast again
-func doStab(target):
-	isDashing = false
-	dashRemaining = 0
-	animationPlayer.play("dashStab")
-	if target.has_method("stab"):
-		target.stab()
+	
 
 # outside effects:
 

@@ -139,11 +139,11 @@ func slash(d):
 	else:
 		damage(d)
 
-func stab():
+func stab(d):
 	if blocking:
 		riposte()
 	else:
-		damage(2)
+		damage(d)
 
 func riposte():
 	animationPlayer.play("startRiposte")

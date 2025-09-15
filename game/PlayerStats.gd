@@ -3,7 +3,8 @@ extends Node
 const BASE_HEALTH = 100
 const BASE_STAMINA = 100
 const BASE_MANA = 100
-const BASE_PHYSICAL_DAMAGE = 5
+const BASE_PHYSICAL_DAMAGE_SLASH = 5
+const BASE_PHYSICAL_DAMAGE_STAB = 10
 const BASE_MAGICAL_DAMAGE = 10
 
 const BASE_LEVELUP_COST = 100
@@ -25,7 +26,8 @@ var manaMax = BASE_MANA + manaLevel * 20
 var health = healthMax
 var stamina = staminaMax
 var mana = manaMax
-var physicalDamage = BASE_PHYSICAL_DAMAGE + 2 * strengthLevel
+var physicalDamageSlash = BASE_PHYSICAL_DAMAGE_SLASH + 2 * strengthLevel
+var physicalDamageStab = BASE_PHYSICAL_DAMAGE_STAB + 4 * strengthLevel
 var magicDamage = BASE_MAGICAL_DAMAGE + 4 * magicLevel
 
 var staminaRecovery = staminaMax * 0.3
@@ -88,7 +90,8 @@ func updateManaMax():
 	mana = int(manaPercent * manaMax)
 
 func updatePhysicalDamage():
-	physicalDamage = BASE_PHYSICAL_DAMAGE + 2 * strengthLevel
+	physicalDamageSlash = BASE_PHYSICAL_DAMAGE_SLASH + 2 * strengthLevel
+	physicalDamageStab = BASE_PHYSICAL_DAMAGE_STAB + 4 * strengthLevel
 
 func updateMagicDamage():
 	magicDamage = BASE_MAGICAL_DAMAGE + 4 * magicLevel

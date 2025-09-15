@@ -66,8 +66,8 @@ func kick(direction):
 func slash(d):
 	damage(d)
 
-func stab():
-	damage(2)
+func stab(d):
+	damage(d)
 	
 func damage(d):
 	health -= d
