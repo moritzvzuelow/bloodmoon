@@ -81,7 +81,7 @@ func stab():
 		damage(2)
 
 func riposte():
-	animationPlayer.play("riposte")
+	animationPlayer.play("startRiposte")
 	pass
 	
 func damage(d):
@@ -113,7 +113,7 @@ func _physics_process(delta):
 				advance()
 			else:
 				if blocking:
-					animationPlayer.play("attack")
+					animationPlayer.play("startAttack")
 				else:
 					animationPlayer.play("startBlock")
 	elif state == KICKED:
@@ -169,7 +169,7 @@ func advance():
 	getPathToPlayer()
 
 func attack():
-	animationPlayer.play("attack")
+	animationPlayer.play("startAttack")
 	state = ATTACK
 
 func idle():

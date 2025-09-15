@@ -87,7 +87,7 @@ func _physics_process(_delta):
 	elif state == ATTACK:
 		if !animationPlayer.is_playing():
 			if isDemon:
-				animationPlayer.play("demonAttack")
+				animationPlayer.play("startDemonAttack")
 			elif repeatCounter > 0:
 				animationPlayer.play("doubleshot")
 				repeatCounter -= 1
@@ -146,7 +146,7 @@ func stab():
 		damage(2)
 
 func riposte():
-	animationPlayer.play("riposte")
+	animationPlayer.play("startRiposte")
 	player.damage(10)
 	
 func damage(d):
@@ -201,7 +201,7 @@ func attack():
 		repeatCounter = CONSECUTIVE_PROJECTILES - 1
 		animationPlayer.play("doubleshot")
 	else:
-		animationPlayer.play("demonAttack")
+		animationPlayer.play("startDemonAttack")
 
 func block():
 	repeatCounter = BLOCK_CYCLES_BEFORE_BURST

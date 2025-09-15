@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/ghoul.png" type="Texture" id=1]
 [ext_resource path="res://game/enemies/Ghoul.gd" type="Script" id=2]
@@ -189,6 +189,35 @@ tracks/0/keys = {
 "values": [ 7 ]
 }
 
+[sub_resource type="Animation" id=11]
+resource_name = "startAttack"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "attack", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
 [sub_resource type="Animation" id=7]
 resource_name = "walk"
 length = 0.8
@@ -230,7 +259,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 19
-frame = 16
+frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 2 )
@@ -238,6 +267,7 @@ anims/die = SubResource( 3 )
 anims/hurt = SubResource( 4 )
 anims/idle = SubResource( 5 )
 anims/kicked = SubResource( 6 )
+anims/startAttack = SubResource( 11 )
 anims/walk = SubResource( 7 )
 
 [node name="Hurtbox" type="Area" parent="."]

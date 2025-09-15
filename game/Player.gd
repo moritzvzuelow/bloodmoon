@@ -100,7 +100,7 @@ func _physics_process(delta):
 		global.inBossFight = false
 		get_tree().change_scene("res://game/Levels/HubWorld.tscn")
 
-	if dead:
+	if dead or freezePlayer:
 		return
 
 	var target = rayCast.get_collider()

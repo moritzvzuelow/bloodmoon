@@ -17,6 +17,8 @@ onready var collisionShape = $CollisionShape
 onready var hurtboxShape = $Hurtbox/CollisionShape
 onready var raycast = $RayCast
 onready var particles = $Particles
+onready var sprite = $Sprite3D
+
 
 enum {
 	IDLE,
@@ -94,7 +96,7 @@ func _physics_process(delta):
 			if distanceToPlayer > MAX_ATTACK_RANGE:
 				advance()
 			else:
-				animationPlayer.play("attack")
+				attack()
 	elif state == KICKED:
 		kickSpeed = lerp(kickSpeed, 0, KICK_DECCEL * delta)
 		if kickSpeed == 0:
@@ -134,7 +136,7 @@ func advance():
 	getPathToPlayer()
 
 func attack():
-	animationPlayer.play("attack")
+	animationPlayer.play("startAttack")
 	state = ATTACK
 
 func idle():
