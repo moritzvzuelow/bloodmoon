@@ -11,10 +11,10 @@ const BASE_LEVELUP_COST = 100
 # levelpoints
 var healthLevel = 10
 var staminaLevel = 10 
-var manaLevel = 10 
+var manaLevel = 0 
 var strengthLevel = 10
-var magicLevel = 10
-var remainingLevelPoints = 10
+var magicLevel = 0
+var remainingLevelPoints = 100
 
 # max Character Stats
 var healthMax = BASE_HEALTH + healthLevel * 20
@@ -25,8 +25,10 @@ var manaMax = BASE_MANA + manaLevel * 20
 var health = healthMax
 var stamina = staminaMax
 var mana = manaMax
-var physicalDamage = BASE_PHYSICAL_DAMAGE + 0.2 * strengthLevel
-var magicDamage = BASE_MAGICAL_DAMAGE + 0.2 * magicLevel
+var physicalDamage = BASE_PHYSICAL_DAMAGE + 2 * strengthLevel
+var magicDamage = BASE_MAGICAL_DAMAGE + 4 * magicLevel
+
+var staminaRecovery = staminaMax * 0.3
 
 var levelup_cost = BASE_LEVELUP_COST
 var moons = 150
@@ -77,6 +79,7 @@ func updateStaminaMax():
 	var staminaPercent = getStaminaPercent()
 	staminaMax = BASE_STAMINA + toAdd
 	stamina = int(staminaPercent * staminaMax)
+	staminaRecovery = staminaMax * 0.3
 
 func updateManaMax():
 	var toAdd = manaLevel * 20
@@ -85,10 +88,10 @@ func updateManaMax():
 	mana = int(manaPercent * manaMax)
 
 func updatePhysicalDamage():
-	physicalDamage = BASE_PHYSICAL_DAMAGE + 0.2 * BASE_PHYSICAL_DAMAGE * strengthLevel
+	physicalDamage = BASE_PHYSICAL_DAMAGE + 2 * strengthLevel
 
 func updateMagicDamage():
-	magicDamage = BASE_MAGICAL_DAMAGE + 0.2 * BASE_MAGICAL_DAMAGE * magicLevel
+	magicDamage = BASE_MAGICAL_DAMAGE + 4 * magicLevel
 
 func levelUpPossible():
 	return moons >= levelup_cost

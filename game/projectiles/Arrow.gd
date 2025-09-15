@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const DAMAGE = 10
+const BASE_DAMAGE = 50
 
 enum {
 	BACK,
@@ -68,7 +68,7 @@ func doHit(target):
 	if delete(target):
 		return
 	if target.has_method("damage"):
-		target.damage(DAMAGE)
+		target.damage(BASE_DAMAGE)
 	queue_free() #delete self
 	
 func delete(target):

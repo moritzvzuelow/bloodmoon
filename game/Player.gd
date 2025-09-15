@@ -126,7 +126,7 @@ func _physics_process(delta):
 			stopBlock()
 			
 	if isIdle() and not isBlocking:
-		addStamina(30 * delta)
+		addStamina(playerStats.staminaRecovery * delta)
 		if Input.is_action_just_pressed("block"):
 			doBlock()
 			

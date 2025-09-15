@@ -5,10 +5,10 @@ const TARGET_ATTACK_RANGE = 2
 const MAX_ATTACK_RANGE = 3
 const VIEW_DISTANCE = 15
 const CORNER_CUT_DIST = 1
-const MAX_HEALTH = 10
+const MAX_HEALTH = 40
 const KICK_STRENGTH = 10
 const KICK_DECCEL = 10
-const DAMAGE = 3
+const BASE_DAMAGE = 75
 
 onready var nav = get_parent()
 onready var player
@@ -124,7 +124,7 @@ func getDistanceToPlayer():
 func tryToHitPlayer(): 
 	var target = raycast.get_collider()
 	if target and target.has_method("damage"):
-		target.damage(DAMAGE)
+		target.damage(BASE_DAMAGE)
 
 # State Stuff
 

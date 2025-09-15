@@ -1,16 +1,16 @@
 extends KinematicBody
 
-const SPEED = 6
-const BLOCK_SPEED = 3
+const SPEED = 3
+const BLOCK_SPEED = 1
 const TARGET_ATTACK_RANGE = 2
 const MAX_ATTACK_RANGE = 3
 const BLOCK_RANGE = 5
 const VIEW_DISTANCE = 25
 const CORNER_CUT_DIST = 1
-const MAX_HEALTH = 50
+const BASE_MAX_HEALTH = 200
 const KICK_STRENGTH = 10
 const KICK_DECCEL = 10
-const DAMAGE = 10
+const BASE_DAMAGE = 120
 
 onready var global = get_node("/root/Global")
 onready var nav = get_parent()
@@ -51,8 +51,8 @@ func _ready():
 	collisionShape.disabled = false
 	animationPlayer.play("idlemove")
 	level = get_parent().get_parent()
-	global.setBossHealthMax(MAX_HEALTH)
-	global.setBossHealth(MAX_HEALTH)
+	global.setBossHealthMax(BASE_MAX_HEALTH)
+	global.setBossHealth(BASE_MAX_HEALTH)
 	global.inBossFight = true
 
 func setPlayer(p):
@@ -63,6 +63,7 @@ func setPlayer(p):
 func kick(direction):
 	kickDirection = direction
 	kickSpeed = KICK_STRENGTH
+	blocking = false
 	animationPlayer.play("kicked")
 	state = KICKED
 
@@ -72,6 +73,7 @@ func slash(d):
 		# TODO return somtehing to make the player staggered for a second
 	else:
 		damage(d)
+
 func stab():
 	if blocking:
 		riposte()
@@ -142,6 +144,8 @@ func _physics_process(delta):
 				move_and_slide(moveDirection.normalized() * speed)
 	elif state == DEAD:
 		pass
+	else:
+		state = ADVANCE
 
 func getVectorToPlayer():
 	return player.translation - translation
@@ -155,7 +159,7 @@ func setBlock(b: bool):
 func tryToHitPlayer(): 
 	var target = raycast.get_collider()
 	if target and target.has_method("damage"):
-		target.damage(DAMAGE)
+		target.damage(BASE_DAMAGE)
 
 # State Stuff
 

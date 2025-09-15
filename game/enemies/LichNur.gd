@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const BOSS_MAX_HP = 100
+const BASE_MAX_HP = 350
 
 var fireballResource = preload("res://game/projectiles/Fireball.tscn")
 
@@ -9,14 +9,15 @@ const PROJECTILE_START_HEIGHT = 1.3
 const FIRING_WIDTH = .2
 const PROJECTILE_SPEED = 20
 const CORNER_CUT_DIST = 1
-const SPEED = 8
+const SPEED = 5
 const ATTACK_RANGE = 20
 const CONSECUTIVE_PROJECTILES = 3
 const BLOCK_CYCLES_BEFORE_BURST = 3
 const BURST_PROJECTILES = 20
 const KICK_STRENGTH = 10
 const KICK_DECCEL = 10
-const DEMON_ATTACK_RANGE = 2
+const DEMON_ATTACK_RANGE = 3
+const DEMON_BASE_DAMAGE = 150
 
 enum {
 	WIZARD,
@@ -56,8 +57,8 @@ func _ready():
 	light.visible = false
 	particles.visible = global.particlesEnabled
 	particles.emitting = false
-	global.setBossHealthMax(BOSS_MAX_HP)
-	global.setBossHealth(BOSS_MAX_HP)
+	global.setBossHealthMax(BASE_MAX_HP)
+	global.setBossHealth(BASE_MAX_HP)
 
 func setPlayer(p):
 	player = p
@@ -116,7 +117,8 @@ func _physics_process(_delta):
 				move_and_slide(moveDirection.normalized() * SPEED)
 	else:
 		if !animationPlayer.is_playing():
-			state = ATTACK
+			sprite.frame = 67
+			state = ADVANCE
 
 # Interface Stuffs
 
@@ -136,6 +138,7 @@ func slash(d):
 		# TODO return somtehing to make the player staggered for a second
 	else:
 		damage(d)
+
 func stab():
 	if blocking:
 		riposte()
@@ -168,7 +171,7 @@ func becomeDemon():
 	light.visible = true
 
 func replenishHealth():
-	global.bossHealth = BOSS_MAX_HP
+	global.setBossHealthMax(BASE_MAX_HP)
 	
 func invuln(b: bool):
 	if b:
@@ -262,7 +265,7 @@ func _on_demonHitbox_area_entered(area):
 	var target = area.get_parent()
 	if target != player:
 		return
-	target.damage(20)
+	target.damage(DEMON_BASE_DAMAGE)
 
 func flashWhite():
 	sprite.modulate = Color(10,10,10,10)

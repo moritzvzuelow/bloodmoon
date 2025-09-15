@@ -9,7 +9,7 @@ const CORNER_CUT_DIST = 1
 const ARROW_SPEED = 10
 const ARROW_START_DISTANCE = 1
 const ARROW_HEIGHT = 1.1
-const MAX_HEALTH = 15
+const MAX_HEALTH = 25
 
 const arrowResource = preload("res://game/projectiles/Arrow.tscn")
 onready var global = get_node("/root/Global")

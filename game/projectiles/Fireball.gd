@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const DAMAGE = 10
+const BASE_DAMAGE = 70
 
 var velocity = Vector3()
 var target
@@ -30,6 +30,6 @@ func doHit(collider):
 	if collider == source or collider.is_in_group("enemies") or collider.is_in_group("obstacles"):
 		return
 	if collider.has_method("damage"):
-		collider.damage(DAMAGE)
+		collider.damage(BASE_DAMAGE)
 	queue_free() #delete self
 

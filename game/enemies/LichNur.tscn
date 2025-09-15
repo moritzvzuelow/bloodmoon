@@ -196,6 +196,20 @@ tracks/1/keys = {
 } ],
 "times": PoolRealArray( 0 )
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "advance"
+} ]
+}
 
 [sub_resource type="Animation" id=6]
 tracks/0/type = "value"
@@ -669,6 +683,7 @@ alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 10
 vframes = 12
+frame = 112
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/burst = SubResource( 2 )
@@ -690,6 +705,7 @@ anims/wizard = SubResource( 17 )
 
 [node name="Particles" type="CPUParticles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50598, 0 )
+emitting = false
 amount = 100
 mesh = SubResource( 19 )
 emission_shape = 2
@@ -706,6 +722,7 @@ hue_variation_random = 1.0
 
 [node name="GreenLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.939822 )
+visible = false
 light_color = Color( 0.690196, 1, 0.654902, 1 )
 shadow_enabled = true
 omni_range = 2.9
@@ -722,6 +739,7 @@ shape = SubResource( 22 )
 disabled = true
 
 [node name="demonHitbox" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.60614, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="demonHitbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.761, -1 )
@@ -734,6 +752,6 @@ disabled = true
 shape = SubResource( 24 )
 
 [node name="kyle" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 8 )
+stream = ExtResource( 7 )
 
 [connection signal="area_entered" from="demonHitbox" to="." method="_on_demonHitbox_area_entered"]
