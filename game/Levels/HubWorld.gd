@@ -28,6 +28,7 @@ const kyleAudio = [
 var tutorialLine = 0
 
 func _ready():
+	global.currentGoal = "Kill Lich Nur"
 	player.fadeIn()
 	if !global.tutorialDone:
 		global.tutorialDone = true

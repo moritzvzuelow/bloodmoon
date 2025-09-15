@@ -7,7 +7,7 @@ const MAGICBALL_START_DISTANCE = 1
 const MAGICBALL_SPEED = 10
 const MAGICBALL_HEIGHT = 0.75
 const MAX_CHARGE_TIME = 2.0
-const CHARGE_THRESHOLD = 0.5
+const CHARGE_THRESHOLD = 0.2
 
 var magicBallResource = preload("res://game/projectiles/MagicBall.tscn")
 
@@ -44,6 +44,7 @@ onready var bossHealthAssembly = $CanvasLayer/Control/Boss
 onready var bossHealthBar = $CanvasLayer/Control/Boss/BossHealth
 onready var pauseMenu = $PauseMenu
 onready var levelMenu = $LevelMenu
+onready var goalLabel = $CanvasLayer/Control/Goal/GoalLabel
 
 
 export var freezePlayer = false setget setFreezePlayer
@@ -371,6 +372,7 @@ func updateHud():
 	moonLabel.text = str(playerStats.moons)
 	var bossHpPercent = float(global.bossHealth)/float(global.bossHealthMax)
 	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)
+	goalLabel.text = global.currentGoal
 	if global.inBossFight:
 		bossHealthAssembly.visible = true
 	else:

@@ -1,5 +1,7 @@
 extends Spatial
 
+onready var global = get_node("/root/Global")
+
 onready var roof = $roof
 onready var devlight = $devlight
 onready var gamelight = $gamelight
@@ -12,6 +14,7 @@ var bossReleased = false
 var bossGateClosed = false
 
 func _ready():
+	global.currentGoal = "Find the right shield crest"
 	roof.visible = true
 	devlight.visible = false
 	gamelight.visible = true

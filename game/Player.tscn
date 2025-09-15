@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://assets/Greatsword_2.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
@@ -627,7 +627,13 @@ outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 9 )
 
-[sub_resource type="DynamicFont" id=31]
+[sub_resource type="DynamicFont" id=34]
+size = 10
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=35]
 size = 10
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
@@ -758,7 +764,6 @@ transform = Transform( -1.62981e-07, 1, 0, -1, -1.62981e-07, 0, 0, 0, 1, 0, 0, -
 [node name="StabShape" type="CollisionShape" parent="Head/StabArea"]
 transform = Transform( 1, -1.73472e-18, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 33 )
-disabled = true
 
 [node name="CameraAnimationPlayer" type="AnimationPlayer" parent="Head"]
 anims/die = SubResource( 4 )
@@ -849,6 +854,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Pixelator" type="Sprite" parent="CanvasLayer/Control"]
+visible = false
 scale = Vector2( 5, 5 )
 
 [node name="tooltip" type="Label" parent="CanvasLayer/Control/Pixelator"]
@@ -878,6 +884,7 @@ __meta__ = {
 }
 
 [node name="YouDied" type="Sprite" parent="CanvasLayer/Control"]
+visible = false
 scale = Vector2( 10, 10 )
 texture = ExtResource( 6 )
 centered = false
@@ -914,6 +921,7 @@ scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 10 )
 
 [node name="keys" type="Node2D" parent="CanvasLayer/Control"]
+visible = false
 position = Vector2( 90, 960 )
 
 [node name="redkey" type="Sprite" parent="CanvasLayer/Control/keys"]
@@ -929,6 +937,7 @@ hframes = 2
 frame = 1
 
 [node name="Boss" type="Node2D" parent="CanvasLayer/Control"]
+visible = false
 position = Vector2( 0, -950 )
 
 [node name="BossHealth" type="ColorRect" parent="CanvasLayer/Control/Boss"]
@@ -945,6 +954,7 @@ texture = ExtResource( 7 )
 centered = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
 margin_right = 1920.0
 margin_bottom = 1080.0
 color = Color( 1, 0, 0, 0.619608 )
@@ -1011,9 +1021,23 @@ margin_left = 346.2
 margin_top = 193.0
 margin_right = 382.2
 margin_bottom = 207.0
-custom_fonts/font = SubResource( 31 )
+custom_fonts/font = SubResource( 34 )
 text = "500000"
 align = 1
+valign = 1
+
+[node name="Goal" type="Node2D" parent="CanvasLayer/Control"]
+scale = Vector2( 2.5, 2.5 )
+
+[node name="GoalLabel" type="Label" parent="CanvasLayer/Control/Goal"]
+margin_left = 598.4
+margin_top = 18.0
+margin_right = 760.4
+margin_bottom = 37.0
+custom_colors/font_color = Color( 0, 0.941176, 0.964706, 1 )
+custom_fonts/font = SubResource( 35 )
+text = "Find the right shield crest"
+align = 2
 valign = 1
 
 [node name="DialogueAnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1025,8 +1049,10 @@ anims/fadein = SubResource( 25 )
 anims/teleport = SubResource( 26 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 3 )]
+visible = false
 
 [node name="LevelMenu" parent="." instance=ExtResource( 15 )]
+visible = false
 
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]

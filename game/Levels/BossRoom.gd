@@ -32,6 +32,7 @@ enum {
 var state = PREFIGHT
 
 func _ready():
+	global.currentGoal = "Kill Lich Nur"
 	ceiling.visible = true
 
 func _on_EntranceArea_area_entered(area):
