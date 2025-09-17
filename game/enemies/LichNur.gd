@@ -39,6 +39,8 @@ var blocking = false
 var isDemon = false
 var demonDamage = DEMON_BASE_DAMAGE
 var riposteDamage = RIPOSTE_BASE_DAMAGE
+var maxHealth = BASE_MAX_HP
+var health = BASE_MAX_HP
 
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
@@ -61,8 +63,10 @@ func _ready():
 	light.visible = false
 	particles.visible = global.particlesEnabled
 	particles.emitting = false
-	global.setBossHealthMax(BASE_MAX_HP)
-	global.setBossHealth(BASE_MAX_HP)
+	maxHealth = BASE_MAX_HP * (1 + bloodmoonStats.enemyHealthLevel)
+	health = maxHealth
+	global.setBossHealthMax(maxHealth)
+	global.setBossHealth(health)
 	demonDamage = DEMON_BASE_DAMAGE * (1 + bloodmoonStats.enemyDamageLevel)
 	riposteDamage = RIPOSTE_BASE_DAMAGE + (1 + bloodmoonStats.enemyDamageLevel)
 
@@ -154,6 +158,7 @@ func stab(d):
 func riposte():
 	animationPlayer.play("startRiposte")
 	player.damage(riposteDamage)
+	heal()
 	
 func damage(d):
 	global.damageBoss(d)
@@ -177,7 +182,8 @@ func becomeDemon():
 	light.visible = true
 
 func replenishHealth():
-	global.setBossHealthMax(BASE_MAX_HP)
+	global.setBossHealth(maxHealth)
+	global.setBossHealthMax(maxHealth)
 	
 func invuln(b: bool):
 	if b:
@@ -187,6 +193,9 @@ func invuln(b: bool):
 	else:
 		demonHurtbox.disabled = !isDemon
 		lichHurtbox.disabled = isDemon
+
+func heal():
+	global.bossHealth = clamp(global.bossHealth + bloodmoonStats.getHealingAmount(global.bossHealthMax), 0, global.bossHealthMax)
 
 # state changes
 
@@ -272,6 +281,7 @@ func _on_demonHitbox_area_entered(area):
 	if target != player:
 		return
 	target.damage(demonDamage)
+	heal()
 
 func flashWhite():
 	sprite.modulate = Color(10,10,10,10)

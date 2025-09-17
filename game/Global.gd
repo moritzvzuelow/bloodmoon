@@ -10,6 +10,7 @@ var tutorialDone = false
 var inBossFight = false
 export var particlesEnabled = true
 var currentGoal = "Kill Lich Nur" setget setCurrentGoal
+var bossAlreadyFought = true
 
 func setBossHealth(h):
 	bossHealth = h

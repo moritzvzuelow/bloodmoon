@@ -51,25 +51,25 @@ func updateBars():
 	playerBlockingSlider.value = bloodmoonStats.blockDurationLimitLevel
 
 func _on_HealthSlider_value_changed(value:float):
-	bloodmoonStats.enemyHealthLevel = value
+	bloodmoonStats.enemyHealthLevel = int(value)
 	updateLevelpointsLabel()
 
 func _on_PlayerBlockingSlider_value_changed(value:float):
-	bloodmoonStats.blockDurationLimitLevel = value
+	bloodmoonStats.blockDurationLimitLevel = int(value)
 	updateLevelpointsLabel()
 
 func _on_LevelLimitSlider_value_changed(value:float):
-	bloodmoonStats.levelLimitLevel = value
+	bloodmoonStats.levelLimitLevel = int(value)
 	updateLevelpointsLabel()
 
 func _on_PDebuffSlider_value_changed(value:float):
-	bloodmoonStats.potionDebuffLevel = value
+	bloodmoonStats.potionDebuffLevel = int(value)
 	updateLevelpointsLabel()
 
 func _on_HealingSlider_value_changed(value:float):
-	bloodmoonStats.enemyHealingLevel = value
+	bloodmoonStats.enemyHealingLevel = int(value)
 	updateLevelpointsLabel()
 
 func _on_DamageSlider_value_changed(value:float):
-	bloodmoonStats.enemyDamageLevel = value
+	bloodmoonStats.enemyDamageLevel = int(value)
 	updateLevelpointsLabel()

@@ -1,5 +1,7 @@
 extends KinematicBody
 
+onready var bloodmoonStats = get_node("/root/BloodmoonStats")
+
 const SPEED = 5
 const MIN_DIST_TO_PLAYER = 4
 const MED_DIST_TO_PLAYER = 8
@@ -34,7 +36,8 @@ enum {
 var path = []
 var currentPathNode = 0
 var state
-var health = MAX_HEALTH
+var maxHealth = MAX_HEALTH
+var health = maxHealth
 
 func _ready():
 	add_to_group("enemies")
@@ -43,6 +46,8 @@ func _ready():
 	hurtboxShape.disabled = false
 	particles.visible = global.particlesEnabled
 	deathParticles.visible = global.particlesEnabled
+	maxHealth = MAX_HEALTH * (1 + bloodmoonStats.enemyHealthLevel)
+	health = maxHealth
 
 func setPlayer(p):
 	player = p
@@ -123,6 +128,9 @@ func getVectorToPlayer():
 
 func getDistanceToPlayer():
 	return getVectorToPlayer().length()
+
+func heal():
+	health = clamp(health + bloodmoonStats.getHealingAmount(maxHealth), 0, maxHealth)
 	
 # State Stuff
 

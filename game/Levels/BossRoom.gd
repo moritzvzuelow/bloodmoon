@@ -38,7 +38,11 @@ func _ready():
 func _on_EntranceArea_area_entered(area):
 	if area.get_parent() != player or state != PREFIGHT:
 		return
-	introDialogue()
+	if global.bossAlreadyFought:
+		boss.attack()
+	else:
+		global.bossAlreadyFought = true
+		introDialogue()
 
 func introDialogue():
 	#boss.attack()

@@ -13,6 +13,7 @@ const KICK_DECCEL = 10
 const BASE_DAMAGE = 120
 
 onready var global = get_node("/root/Global")
+onready var bloodmoonStats = get_node("/root/BloodmoonStats")
 onready var nav = get_parent()
 onready var player
 onready var animationPlayer = $AnimationPlayer
@@ -52,10 +53,11 @@ func _ready():
 	collisionShape.disabled = false
 	animationPlayer.play("idlemove")
 	level = get_parent().get_parent()
-	global.setBossHealthMax(BASE_MAX_HEALTH)
-	global.setBossHealth(BASE_MAX_HEALTH)
+	var maxHealth = BASE_MAX_HEALTH * (1 + bloodmoonStats.enemyHealthLevel)
+	global.setBossHealthMax(maxHealth)
+	global.setBossHealth(maxHealth)
 	global.inBossFight = true
-	e_damage = BASE_DAMAGE * (1 + BloodmoonStats.enemyDamageLevel)
+	e_damage = BASE_DAMAGE * (1 + bloodmoonStats.enemyDamageLevel)
 
 func setPlayer(p):
 	player = p
@@ -162,6 +164,10 @@ func tryToHitPlayer():
 	var target = raycast.get_collider()
 	if target and target.has_method("damage"):
 		target.damage(e_damage)
+		heal()
+
+func heal():
+	global.bossHealth = clamp(global.bossHealth + bloodmoonStats.getHealingAmount(global.bossHealthMax), 0, global.bossHealthMax)
 
 # State Stuff
 

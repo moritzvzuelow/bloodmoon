@@ -73,6 +73,7 @@ func doHit(target):
 		return
 	if target.has_method("damage"):
 		target.damage(e_damage)
+		source.heal()
 	queue_free() #delete self
 	
 func delete(target):

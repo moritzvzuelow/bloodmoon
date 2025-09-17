@@ -35,5 +35,6 @@ func doHit(collider):
 		return
 	if collider.has_method("damage"):
 		collider.damage(e_damage)
+		source.heal()
 	queue_free() #delete self
 

@@ -42,7 +42,8 @@ enum {
 var path = []
 var currentPathNode = 0
 var state
-var health = MAX_HEALTH
+var maxHealth = MAX_HEALTH
+var health = maxHealth
 var kickDirection = Vector3()
 var kickSpeed = 0
 var blocking = false
@@ -54,6 +55,8 @@ func _ready():
 	collisionShape.disabled = false
 	particles.visible = global.particlesEnabled
 	e_damage = BASE_DAMAGE * (1 + bloodmoonStats.enemyDamageLevel)
+	maxHealth = MAX_HEALTH * (1 + bloodmoonStats.enemyHealthLevel)
+	health = maxHealth
 
 func setPlayer(p):
 	player = p
@@ -84,7 +87,7 @@ func damage(d):
 func _physics_process(delta):
 	if !player:
 		return
-	
+
 	look_at(player.translation, Vector3(0,1,0))
 
 	var distanceToPlayer = getDistanceToPlayer()
@@ -126,10 +129,14 @@ func getVectorToPlayer():
 func getDistanceToPlayer():
 	return getVectorToPlayer().length()
 
-func tryToHitPlayer(): 
+func tryToHitPlayer():
 	var target = raycast.get_collider()
 	if target and target.has_method("damage"):
 		target.damage(e_damage)
+		heal()
+
+func heal():
+	health = clamp(health + bloodmoonStats.getHealingAmount(maxHealth), 0, maxHealth)
 
 # State Stuff
 
