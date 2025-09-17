@@ -4,6 +4,7 @@ onready var player = $Player
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
 onready var kyle = $AudioStreamPlayer2
+onready var cabinet = $cabinet
 
 const tutorialText = [
 	"WIZARD NODROG: Welcome back, PALADIN.\nLICH NUR is imprisoned in CASTLE BLOODMOON, behind me",
@@ -33,6 +34,8 @@ func _ready():
 	if !global.tutorialDone:
 		global.tutorialDone = true
 		animationPlayer.play("delay")
+	if true in global.piece:
+		cabinet.queue_free()
 
 func showNextSlide():
 	if tutorialLine < tutorialText.size():

@@ -1,5 +1,7 @@
 extends Node
 
+onready var bloodmoonStats = get_node("/root/BloodmoonStats")
+
 const BASE_HEALTH = 100
 const BASE_STAMINA = 100
 const BASE_MANA = 100
@@ -10,12 +12,13 @@ const BASE_MAGICAL_DAMAGE = 10
 const BASE_LEVELUP_COST = 100
 
 # levelpoints
-var healthLevel = 20
-var staminaLevel = 20 
-var manaLevel = 20 
-var strengthLevel = 20
-var magicLevel = 20
-var remainingLevelPoints = 100
+var healthLevel = 0
+var staminaLevel = 0 
+var manaLevel = 0 
+var strengthLevel = 0
+var magicLevel = 0
+var remainingLevelPointsMax = 90
+var remainingLevelPoints = remainingLevelPointsMax
 
 # max Character Stats
 var healthMax = BASE_HEALTH + healthLevel * 20
@@ -70,6 +73,10 @@ func getStaminaPercent():
 func getManaPercent():
 	return float(mana)/float(manaMax)
 
+func updateRemainingLevels(toAdd):
+	remainingLevelPointsMax += toAdd
+	remainingLevelPoints = clamp(remainingLevelPoints + toAdd, 0, bloodmoonStats.getLevelLimit())
+
 func updateHealthMax():
 	var toAdd = healthLevel * 20
 	var healthPercent = getHealthPercent()
@@ -102,7 +109,7 @@ func levelUpPossible():
 func levelup():
 	if not levelUpPossible():
 		return
-	remainingLevelPoints += 1
+	updateRemainingLevels(1)
 	moons -= levelup_cost
 	levelup_cost = int(levelup_cost * 1.5)
 
@@ -111,3 +118,11 @@ func isHealthMax():
 
 func isManaMax():
 	return mana == manaMax
+
+func resetLevels():
+	remainingLevelPoints = clamp(remainingLevelPointsMax, 0, bloodmoonStats.getLevelLimit())
+	healthLevel = 0
+	staminaLevel = 0
+	manaLevel = 0
+	strengthLevel = 0
+	magicLevel = 0

@@ -14,6 +14,7 @@ var magicBallResource = preload("res://game/projectiles/MagicBall.tscn")
 var velocity
 
 onready var global = get_node("/root/Global")
+onready var bloodmoonStats = get_node("/root/BloodmoonStats")
 onready var playerStats = get_node("/root/PlayerStats")
 
 
@@ -127,6 +128,7 @@ func _physics_process(delta):
 			else:
 				doStab() 
 			isCharging = false
+			currentSpeed = SPEED
 		elif Input.is_action_just_pressed("kick") and not isCharging:
 			doKick()
 		elif Input.is_action_just_pressed("shoot") and not isCharging:
@@ -137,6 +139,7 @@ func _physics_process(delta):
 		chargeTime = min(chargeTime, MAX_CHARGE_TIME)
 		if chargeTime >= CHARGE_THRESHOLD and (!animationPlayer.is_playing() or isBlocking) and !chargePlayed:
 			stopBlock()
+			currentSpeed = 1
 			animationPlayer.play("chargeStab")
 			chargePlayed = true
 
@@ -147,7 +150,7 @@ func _physics_process(delta):
 			doBlock()
 			
 	if isBlocking:
-		addStamina(-30 * delta)
+		addStamina(bloodmoonStats.getBlockCost() * delta)
 		if Input.is_action_just_released("block") or not hasEnoughStamina(0.01):
 			stopBlock()
 
@@ -347,13 +350,13 @@ func die():
 	cameraAnimationPlayer.play("die")
 
 func pickupHealth():
-	var potion_hp = playerStats.healthMax * 0.5
+	var potion_hp = playerStats.healthMax * bloodmoonStats.getPotionMultiplier()
 	addHealth(potion_hp)
 	playHealthPickupAnim()
 	updateHud()
 
 func pickupMana():
-	var potion_mp = playerStats.manaMax * 0.5
+	var potion_mp = playerStats.manaMax * bloodmoonStats.getPotionMultiplier()
 	addMana(potion_mp)
 	playManaPickupAnim()
 	updateHud()
@@ -393,6 +396,9 @@ func playDialogue(s):
 
 func receiveMoons(m):
 	playerStats.addMoons(m)
+
+func resetLevels():
+	playerStats.resetLevels()
 
 func openLevelMenu():
 	levelMenu.openLevelMenu()

@@ -61,6 +61,7 @@ func _on_PlayerBlockingSlider_value_changed(value:float):
 func _on_LevelLimitSlider_value_changed(value:float):
 	bloodmoonStats.levelLimitLevel = int(value)
 	updateLevelpointsLabel()
+	get_parent().resetLevels()
 
 func _on_PDebuffSlider_value_changed(value:float):
 	bloodmoonStats.potionDebuffLevel = int(value)

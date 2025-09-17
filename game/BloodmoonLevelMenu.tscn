@@ -163,7 +163,7 @@ margin_top = 60.0
 margin_right = 72.0
 margin_bottom = 83.0
 custom_fonts/font = SubResource( 2 )
-text = "Level Limit"
+text = "Limit Level"
 align = 1
 valign = 1
 uppercase = true
@@ -186,17 +186,16 @@ margin_top = 60.0
 margin_right = 72.0
 margin_bottom = 83.0
 custom_fonts/font = SubResource( 2 )
-text = "Limit Block 
-Duration"
-align = 1
+text = "Inc Block
+Stamina"
 valign = 1
 uppercase = true
 
 [node name="PlayerBlockingSlider" type="HSlider" parent="Control/Level/PlayerBlocking"]
 margin_left = 110.0
-margin_top = 64.0
+margin_top = 70.75
 margin_right = 444.0
-margin_bottom = 80.0
+margin_bottom = 86.75
 max_value = 3.0
 rounded = true
 
