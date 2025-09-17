@@ -1,0 +1,208 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/fonts/IBMPlexMono-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://game/BloodmoonLevelMenu.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 15
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 10
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[node name="BloodmoonLevelMenu" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0.482353, 0, 0, 0.294118 )
+
+[node name="Title" type="Sprite" parent="Control"]
+scale = Vector2( 5, 5 )
+
+[node name="TitleLabel" type="Label" parent="Control/Title"]
+margin_right = 199.0
+margin_bottom = 45.0
+custom_fonts/font = SubResource( 1 )
+text = "-- Bloodmoon Level --"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="LevelPoints" type="Sprite" parent="Control"]
+scale = Vector2( 5, 5 )
+
+[node name="LevelPointsLabel" type="Label" parent="Control/LevelPoints"]
+margin_left = 237.8
+margin_top = 12.8
+margin_right = 372.8
+margin_bottom = 32.8
+custom_fonts/font = SubResource( 3 )
+text = "Bloodmoon level: 20"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Level" type="Sprite" parent="Control"]
+
+[node name="EnemyHealth" type="Sprite" parent="Control/Level"]
+position = Vector2( 0, 5 )
+scale = Vector2( 4, 4 )
+
+[node name="HealthLabel" type="Label" parent="Control/Level/EnemyHealth"]
+margin_left = 15.0
+margin_top = 60.0
+margin_right = 72.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 2 )
+text = "Enemy Health"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="HealthSlider" type="HSlider" parent="Control/Level/EnemyHealth"]
+margin_left = 110.0
+margin_top = 64.0
+margin_right = 444.0
+margin_bottom = 80.0
+max_value = 3.0
+rounded = true
+
+[node name="EnemyDamage" type="Sprite" parent="Control/Level"]
+position = Vector2( 0, 130 )
+scale = Vector2( 4, 4 )
+
+[node name="DamageLabel" type="Label" parent="Control/Level/EnemyDamage"]
+margin_left = 15.0
+margin_top = 60.0
+margin_right = 72.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 2 )
+text = "Enemy Damage"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="DamageSlider" type="HSlider" parent="Control/Level/EnemyDamage"]
+margin_left = 110.0
+margin_top = 64.25
+margin_right = 443.25
+margin_bottom = 80.25
+max_value = 3.0
+rounded = true
+
+[node name="EnemyHealing" type="Sprite" parent="Control/Level"]
+position = Vector2( 0, 255 )
+scale = Vector2( 4, 4 )
+
+[node name="HealingLabel" type="Label" parent="Control/Level/EnemyHealing"]
+margin_left = 15.0
+margin_top = 60.0
+margin_right = 72.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 2 )
+text = "Enemy Healing"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="HealingSlider" type="HSlider" parent="Control/Level/EnemyHealing"]
+margin_left = 110.0
+margin_top = 64.25
+margin_right = 443.25
+margin_bottom = 80.25
+max_value = 3.0
+rounded = true
+
+[node name="PotionDebuff" type="Sprite" parent="Control/Level"]
+position = Vector2( 0, 380 )
+scale = Vector2( 4, 4 )
+
+[node name="PDebuffLabel" type="Label" parent="Control/Level/PotionDebuff"]
+margin_left = 15.0
+margin_top = 60.0
+margin_right = 72.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 2 )
+text = "Potion Debuff"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="PDebuffSlider" type="HSlider" parent="Control/Level/PotionDebuff"]
+margin_left = 110.0
+margin_top = 64.25
+margin_right = 443.25
+margin_bottom = 80.25
+max_value = 3.0
+rounded = true
+
+[node name="LevelLimit" type="Sprite" parent="Control/Level"]
+position = Vector2( 0, 505 )
+scale = Vector2( 4, 4 )
+
+[node name="LevelLimitLabel" type="Label" parent="Control/Level/LevelLimit"]
+margin_left = 15.0
+margin_top = 60.0
+margin_right = 72.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 2 )
+text = "Level Limit"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="LevelLimitSlider" type="HSlider" parent="Control/Level/LevelLimit"]
+margin_left = 110.0
+margin_top = 64.25
+margin_right = 443.25
+margin_bottom = 80.25
+max_value = 3.0
+rounded = true
+
+[node name="PlayerBlocking" type="Sprite" parent="Control/Level"]
+position = Vector2( 0, 630 )
+scale = Vector2( 4, 4 )
+
+[node name="PlayerBlockingLabel" type="Label" parent="Control/Level/PlayerBlocking"]
+margin_left = 15.0
+margin_top = 60.0
+margin_right = 72.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 2 )
+text = "Limit Block 
+Duration"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="PlayerBlockingSlider" type="HSlider" parent="Control/Level/PlayerBlocking"]
+margin_left = 110.0
+margin_top = 64.0
+margin_right = 444.0
+margin_bottom = 80.0
+max_value = 3.0
+rounded = true
+
+[connection signal="value_changed" from="Control/Level/EnemyHealth/HealthSlider" to="." method="_on_HealthSlider_value_changed"]
+[connection signal="value_changed" from="Control/Level/EnemyDamage/DamageSlider" to="." method="_on_DamageSlider_value_changed"]
+[connection signal="value_changed" from="Control/Level/EnemyHealing/HealingSlider" to="." method="_on_HealingSlider_value_changed"]
+[connection signal="value_changed" from="Control/Level/PotionDebuff/PDebuffSlider" to="." method="_on_PDebuffSlider_value_changed"]
+[connection signal="value_changed" from="Control/Level/LevelLimit/LevelLimitSlider" to="." method="_on_LevelLimitSlider_value_changed"]
+[connection signal="value_changed" from="Control/Level/PlayerBlocking/PlayerBlockingSlider" to="." method="_on_PlayerBlockingSlider_value_changed"]

@@ -25,6 +25,7 @@ aseprite_executable_path=""
 [autoload]
 
 Global="*res://game/Global.tscn"
+BloodmoonStats="*res://game/BloodmoonStats.gd"
 PlayerStats="*res://game/PlayerStats.gd"
 
 [display]

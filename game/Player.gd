@@ -44,6 +44,7 @@ onready var bossHealthAssembly = $CanvasLayer/Control/Boss
 onready var bossHealthBar = $CanvasLayer/Control/Boss/BossHealth
 onready var pauseMenu = $PauseMenu
 onready var levelMenu = $LevelMenu
+onready var bloodmoonLevelMenu = $BloodmoonLevelMenu
 onready var goalLabel = $CanvasLayer/Control/Goal/GoalLabel
 
 
@@ -395,6 +396,9 @@ func receiveMoons(m):
 
 func openLevelMenu():
 	levelMenu.openLevelMenu()
+
+func openBloodmoonLevelMenu():
+	bloodmoonLevelMenu.openLevelMenu()
 
 func teleportHome():
 	teleportAnimationPlayer.play("teleport")

@@ -43,6 +43,7 @@ var kickDirection = Vector3()
 var kickSpeed = 0
 var blocking = false
 var level
+var e_damage = BASE_DAMAGE
 
 func _ready():
 	add_to_group("enemies")
@@ -54,6 +55,7 @@ func _ready():
 	global.setBossHealthMax(BASE_MAX_HEALTH)
 	global.setBossHealth(BASE_MAX_HEALTH)
 	global.inBossFight = true
+	e_damage = BASE_DAMAGE * (1 + BloodmoonStats.enemyDamageLevel)
 
 func setPlayer(p):
 	player = p
@@ -159,7 +161,7 @@ func setBlock(b: bool):
 func tryToHitPlayer(): 
 	var target = raycast.get_collider()
 	if target and target.has_method("damage"):
-		target.damage(BASE_DAMAGE)
+		target.damage(e_damage)
 
 # State Stuff
 

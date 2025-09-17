@@ -3,6 +3,7 @@ extends KinematicBody
 const BASE_MAX_HP = 350
 
 var fireballResource = preload("res://game/projectiles/Fireball.tscn")
+onready var bloodmoonStats = get_node("/root/BloodmoonStats")
 
 const PROJECTILE_START_DISTANCE = 1
 const PROJECTILE_START_HEIGHT = 1.3
@@ -18,6 +19,7 @@ const KICK_STRENGTH = 10
 const KICK_DECCEL = 10
 const DEMON_ATTACK_RANGE = 3
 const DEMON_BASE_DAMAGE = 150
+const RIPOSTE_BASE_DAMAGE = 80
 
 enum {
 	WIZARD,
@@ -35,6 +37,8 @@ var kickDirection = Vector3()
 var kickSpeed = 0
 var blocking = false
 var isDemon = false
+var demonDamage = DEMON_BASE_DAMAGE
+var riposteDamage = RIPOSTE_BASE_DAMAGE
 
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
@@ -59,6 +63,8 @@ func _ready():
 	particles.emitting = false
 	global.setBossHealthMax(BASE_MAX_HP)
 	global.setBossHealth(BASE_MAX_HP)
+	demonDamage = DEMON_BASE_DAMAGE * (1 + bloodmoonStats.enemyDamageLevel)
+	riposteDamage = RIPOSTE_BASE_DAMAGE + (1 + bloodmoonStats.enemyDamageLevel)
 
 func setPlayer(p):
 	player = p
@@ -147,7 +153,7 @@ func stab(d):
 
 func riposte():
 	animationPlayer.play("startRiposte")
-	player.damage(10)
+	player.damage(riposteDamage)
 	
 func damage(d):
 	global.damageBoss(d)
@@ -265,7 +271,7 @@ func _on_demonHitbox_area_entered(area):
 	var target = area.get_parent()
 	if target != player:
 		return
-	target.damage(DEMON_BASE_DAMAGE)
+	target.damage(demonDamage)
 
 func flashWhite():
 	sprite.modulate = Color(10,10,10,10)

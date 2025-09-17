@@ -1,5 +1,8 @@
 extends KinematicBody
 
+onready var global = get_node("/root/Global")
+onready var bloodmoonStats = get_node("/root/BloodmoonStats")
+
 const SPEED = 4
 const TARGET_ATTACK_RANGE = 2
 const MAX_ATTACK_RANGE = 3
@@ -43,14 +46,14 @@ var health = MAX_HEALTH
 var kickDirection = Vector3()
 var kickSpeed = 0
 var blocking = false
-
-onready var global = get_node("/root/Global")
+var e_damage = BASE_DAMAGE
 
 func _ready():
 	add_to_group("enemies")
 	idle()
 	collisionShape.disabled = false
 	particles.visible = global.particlesEnabled
+	e_damage = BASE_DAMAGE * (1 + bloodmoonStats.enemyDamageLevel)
 
 func setPlayer(p):
 	player = p
@@ -126,7 +129,7 @@ func getDistanceToPlayer():
 func tryToHitPlayer(): 
 	var target = raycast.get_collider()
 	if target and target.has_method("damage"):
-		target.damage(BASE_DAMAGE)
+		target.damage(e_damage)
 
 # State Stuff
 

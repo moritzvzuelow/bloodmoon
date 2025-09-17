@@ -38,7 +38,7 @@ margin_bottom = 40.0
 [node name="ColorRect" type="ColorRect" parent="Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-color = Color( 0.294118, 0.294118, 0.294118, 1 )
+color = Color( 0, 0.305882, 0.529412, 0.294118 )
 
 [node name="Title" type="Sprite" parent="Control"]
 scale = Vector2( 5, 5 )

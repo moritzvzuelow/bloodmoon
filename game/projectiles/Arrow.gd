@@ -1,5 +1,7 @@
 extends KinematicBody
 
+onready var bloodmoonStats = get_node("/root/BloodmoonStats")
+
 const BASE_DAMAGE = 50
 
 enum {
@@ -15,6 +17,7 @@ var velocity = Vector3()
 onready var sprite = $Sprite3D
 var player
 var source
+var e_damage = BASE_DAMAGE
 
 func setSource(s):
 	source = s
@@ -28,6 +31,7 @@ func _ready():
 	$CollisionShape.disabled = false
 	add_to_group("projectiles")
 	look_at(velocity, Vector3(0,1,0))
+	e_damage = BASE_DAMAGE * (1 + bloodmoonStats.enemyDamageLevel)
 
 func setPlayer(p):
 	player = p 
@@ -68,7 +72,7 @@ func doHit(target):
 	if delete(target):
 		return
 	if target.has_method("damage"):
-		target.damage(BASE_DAMAGE)
+		target.damage(e_damage)
 	queue_free() #delete self
 	
 func delete(target):
