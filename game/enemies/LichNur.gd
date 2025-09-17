@@ -41,6 +41,7 @@ var demonDamage = DEMON_BASE_DAMAGE
 var riposteDamage = RIPOSTE_BASE_DAMAGE
 var maxHealth = BASE_MAX_HP
 var health = BASE_MAX_HP
+var invulnerable = true
 
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
@@ -69,6 +70,7 @@ func _ready():
 	global.setBossHealth(health)
 	demonDamage = DEMON_BASE_DAMAGE * (1 + bloodmoonStats.enemyDamageLevel)
 	riposteDamage = RIPOSTE_BASE_DAMAGE + (1 + bloodmoonStats.enemyDamageLevel)
+	invuln(true)
 
 func setPlayer(p):
 	player = p
@@ -161,6 +163,8 @@ func riposte():
 	heal()
 	
 func damage(d):
+	if invulnerable:
+		return
 	global.damageBoss(d)
 	player.updateHud()
 	if global.bossHealth <= 0:
@@ -187,10 +191,12 @@ func replenishHealth():
 	
 func invuln(b: bool):
 	if b:
+		invulnerable = true
 		demonHurtbox.disabled = true
 		lichHurtbox.disabled = true
 		demonHitbox.disabled = true
 	else:
+		invulnerable = false
 		demonHurtbox.disabled = !isDemon
 		lichHurtbox.disabled = isDemon
 

@@ -637,6 +637,20 @@ tracks/3/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 2.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ false ],
+"method": "invuln"
+} ]
+}
 
 [sub_resource type="Animation" id=16]
 length = 2.6
@@ -765,7 +779,7 @@ alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 10
 vframes = 12
-frame = 80
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/burst = SubResource( 2 )
@@ -817,6 +831,7 @@ enabled = true
 cast_to = Vector3( 0, 0, -20 )
 
 [node name="Area" type="Area" parent="."]
+collision_layer = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 22 )

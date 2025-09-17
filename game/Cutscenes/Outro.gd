@@ -1,5 +1,8 @@
 extends Node2D
 
+onready var global = get_node("/root/Global")
+onready var playerStats = get_node("/root/PlayerStats")
+
 
 onready var animationPlayer = $AnimationPlayer
 onready var text = $Control/Sprite/Text
@@ -91,4 +94,9 @@ func hideCredits():
 	creditsText.visible = false
 
 func exit():
-	get_tree().quit()
+	playerStats.health = playerStats.healthMax
+	playerStats.stamina = playerStats.staminaMax
+	playerStats.mana = playerStats.manaMax
+	global.resetPieces()
+	global.inBossFight = false
+	get_tree().change_scene("res://game/Levels/HubWorld.tscn")

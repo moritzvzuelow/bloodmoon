@@ -39,6 +39,7 @@ func _on_EntranceArea_area_entered(area):
 	if area.get_parent() != player or state != PREFIGHT:
 		return
 	if global.bossAlreadyFought:
+		boss.invuln(false)
 		boss.attack()
 	else:
 		global.bossAlreadyFought = true

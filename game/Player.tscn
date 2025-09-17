@@ -954,7 +954,6 @@ centered = false
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-color = Color( 1, 0, 0, 0.619608 )
 
 [node name="Health" type="Node2D" parent="CanvasLayer/Control"]
 
