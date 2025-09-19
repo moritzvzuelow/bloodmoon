@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://assets/Greatsword_2.png" type="Texture" id=1]
 [ext_resource path="res://game/Player.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://game/LevelMenu.tscn" type="PackedScene" id=15]
 [ext_resource path="res://game/BloodmoonLevelMenu.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/moons.png" type="Texture" id=17]
+[ext_resource path="res://game/MapMenu.tscn" type="PackedScene" id=18]
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -1022,17 +1023,17 @@ text = "500000"
 align = 1
 valign = 1
 
-[node name="Goal" type="Node2D" parent="CanvasLayer/Control"]
+[node name="Room" type="Node2D" parent="CanvasLayer/Control"]
 scale = Vector2( 2.5, 2.5 )
 
-[node name="GoalLabel" type="Label" parent="CanvasLayer/Control/Goal"]
+[node name="Roomlabel" type="Label" parent="CanvasLayer/Control/Room"]
 margin_left = 598.4
-margin_top = 18.0
+margin_top = 3.2
 margin_right = 760.4
-margin_bottom = 37.0
-custom_colors/font_color = Color( 0, 0.941176, 0.964706, 1 )
+margin_bottom = 22.2
+custom_colors/font_color = Color( 0.792157, 0.792157, 0.792157, 0.980392 )
 custom_fonts/font = SubResource( 35 )
-text = "Find the right shield crest"
+text = "Hub"
 align = 2
 valign = 1
 
@@ -1049,6 +1050,8 @@ anims/teleport = SubResource( 26 )
 [node name="LevelMenu" parent="." instance=ExtResource( 15 )]
 
 [node name="BloodmoonLevelMenu" parent="." instance=ExtResource( 16 )]
+
+[node name="MapMenu" parent="." instance=ExtResource( 18 )]
 
 [connection signal="area_entered" from="Head/KickArea" to="." method="_on_KickArea_area_entered"]
 [connection signal="area_entered" from="Head/SwordArea" to="." method="_on_SwordArea_area_entered"]

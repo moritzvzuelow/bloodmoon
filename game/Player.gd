@@ -8,6 +8,7 @@ const MAGICBALL_SPEED = 10
 const MAGICBALL_HEIGHT = 0.75
 const MAX_CHARGE_TIME = 2.0
 const CHARGE_THRESHOLD = 0.2
+const CHARGE_RELEASE_THRESHOLD = 0.5
 
 var magicBallResource = preload("res://game/projectiles/MagicBall.tscn")
 
@@ -45,9 +46,9 @@ onready var bossHealthAssembly = $CanvasLayer/Control/Boss
 onready var bossHealthBar = $CanvasLayer/Control/Boss/BossHealth
 onready var pauseMenu = $PauseMenu
 onready var levelMenu = $LevelMenu
+onready var mapMenu = $MapMenu
 onready var bloodmoonLevelMenu = $BloodmoonLevelMenu
-onready var goalLabel = $CanvasLayer/Control/Goal/GoalLabel
-
+onready var roomLabel = $CanvasLayer/Control/Room/Roomlabel
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -125,6 +126,8 @@ func _physics_process(delta):
 		elif Input.is_action_just_released("attack") and isCharging:
 			if chargeTime < CHARGE_THRESHOLD:
 				startSlash()
+			elif chargeTime < CHARGE_RELEASE_THRESHOLD:
+				animationPlayer.play("rightReturn")
 			else:
 				doStab() 
 			isCharging = false
@@ -137,11 +140,13 @@ func _physics_process(delta):
 	if isCharging:
 		chargeTime += delta
 		chargeTime = min(chargeTime, MAX_CHARGE_TIME)
-		if chargeTime >= CHARGE_THRESHOLD and (!animationPlayer.is_playing() or isBlocking) and !chargePlayed:
-			stopBlock()
-			currentSpeed = 1
-			animationPlayer.play("chargeStab")
-			chargePlayed = true
+		if chargeTime >= CHARGE_THRESHOLD and (!animationPlayer.is_playing() or isBlocking):
+			addStamina(bloodmoonStats.getBlockCost() * delta)
+			if !chargePlayed:
+				animationPlayer.play("chargeStab")
+				chargePlayed = true
+				stopBlock()
+				currentSpeed = 1
 
 			
 	if isIdle() and not isBlocking and not isCharging:
@@ -376,7 +381,6 @@ func updateHud():
 	moonLabel.text = str(playerStats.moons)
 	var bossHpPercent = float(global.bossHealth)/float(global.bossHealthMax)
 	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)
-	goalLabel.text = global.currentGoal
 	if global.inBossFight:
 		bossHealthAssembly.visible = true
 	else:
@@ -426,6 +430,15 @@ func playHealthPickupAnim():
 
 func playManaPickupAnim():
 	cameraAnimationPlayer.play("manapickup")
+
+func setMap(p):
+	mapMenu.setMap(p)
+
+func setGoal(g):
+	mapMenu.setGoal(g)
+
+func setRoom(r):
+	roomLabel.text = r
 
 func _on_PauseMenu_senseChanged(value):
 	mouseSense = value 

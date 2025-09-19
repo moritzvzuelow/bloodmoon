@@ -64,6 +64,7 @@ Right Click: Block (can be held)
 E: Use
 F: Kick
 Q: Shoot Magicball
+M: Show map and goal
 Press C to go back"
 align = 1
 autowrap = true
@@ -72,7 +73,7 @@ __meta__ = {
 }
 
 [node name="SensSprite" type="Sprite" parent="Control"]
-position = Vector2( 0, 200 )
+position = Vector2( 0, 250 )
 scale = Vector2( 5, 5 )
 __meta__ = {
 "_editor_description_": ""

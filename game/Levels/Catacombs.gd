@@ -1,13 +1,17 @@
 extends Spatial
 
+const MAP_PATH = "res://assets/minimap_screenshots/catacombs_mm_cropped.png"
+
 onready var roof = $Walls2
 onready var global = get_node("/root/Global")
+onready var player = $Player
 
 var hasKey = [false, false]
 
 func _ready():
-	global.currentGoal = "Find the sword crest"
+	player.setGoal("Find the sword crest")
 	roof.visible=true
+	player.setMap(MAP_PATH)
 
 func playerHasKey(i):
 	return hasKey[i]
@@ -17,3 +21,18 @@ func acquireKey(i):
 	
 func removeKey(i):
 	hasKey[i] = false
+
+func _on_ThousandWaysRoomArea_area_entered(_area:Area):
+	player.setRoom("Room of 1000 Ways")
+
+func _on_SwordRoomsArea_area_entered(_area:Area):
+	player.setRoom("Rooms of the sword")
+
+func _on_SkeletonGraveRoom_area_entered(_area:Area):
+	player.setRoom("Skeleton Grave")
+
+func _on_NowhereArea_area_entered(_area:Area):
+	player.setRoom("Nowhere")
+
+func _on_EntranceRoomArea_area_entered(_area:Area):
+	player.setRoom("Entrance")

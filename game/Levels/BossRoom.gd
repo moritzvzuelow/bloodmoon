@@ -1,5 +1,7 @@
 extends Spatial
 
+const MAP_PATH = "res://assets/minimap_screenshots/bossroom_mm_cropped.png"
+
 onready var ceiling = $Ceiling
 onready var player = $Player
 onready var boss = $Navigation/LichNur
@@ -32,8 +34,9 @@ enum {
 var state = PREFIGHT
 
 func _ready():
-	global.currentGoal = "Kill Lich Nur"
+	player.setGoal("Kill Lich Nur")
 	ceiling.visible = true
+	player.setMap(MAP_PATH)
 
 func _on_EntranceArea_area_entered(area):
 	if area.get_parent() != player or state != PREFIGHT:
@@ -67,3 +70,6 @@ func unFreezePlayer():
 
 func playmusic():
 	music.playing=true
+
+func _on_BossroomArea_area_entered(_area:Area):
+	player.setRoom("Bossroom")

@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/minimap_screenshots/hubworld_mm_cropped.png" type="Texture" id=1]
+[ext_resource path="res://game/MapMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/IBMPlexMono-Medium.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 10
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[node name="MapMenu" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="Map" type="TextureRect" parent="Control"]
+margin_left = -485.0
+margin_top = -300.0
+margin_right = 1435.0
+margin_bottom = 823.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="Goal" type="Node2D" parent="Control"]
+scale = Vector2( 2.5, 2.5 )
+
+[node name="GoalLabel" type="Label" parent="Control/Goal"]
+margin_left = 598.4
+margin_top = 18.0
+margin_right = 760.4
+margin_bottom = 37.0
+custom_colors/font_color = Color( 0, 0.941176, 0.964706, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Find the right shield crest"
+align = 2
+valign = 1

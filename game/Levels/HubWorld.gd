@@ -1,5 +1,7 @@
 extends Spatial
 
+const MAP_PATH = "res://assets/minimap_screenshots/hubworld_mm_cropped.png"
+
 onready var player = $Player
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
@@ -29,7 +31,8 @@ const kyleAudio = [
 var tutorialLine = 0
 
 func _ready():
-	global.currentGoal = "Kill Lich Nur"
+	player.setGoal("Kill Lich Nur")
+	player.setMap(MAP_PATH)
 	player.fadeIn()
 	if !global.tutorialDone:
 		global.tutorialDone = true
@@ -46,3 +49,6 @@ func showSlide():
 	kyle.stream = load(kyleAudio[tutorialLine])
 	kyle.playing = true
 	tutorialLine += 1
+
+func _on_HubRoomArea_area_entered(_area:Area):
+	player.setRoom("Hub")

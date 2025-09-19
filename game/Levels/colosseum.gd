@@ -1,5 +1,7 @@
 extends Spatial
 
+const MAP_PATH = "res://assets/minimap_screenshots/colloseum_mm_cropped.png"
+
 onready var global = get_node("/root/Global")
 
 onready var roof = $roof
@@ -14,12 +16,13 @@ var bossReleased = false
 var bossGateClosed = false
 
 func _ready():
-	global.currentGoal = "Find the right shield crest"
+	player.setGoal("Find the right shield crest")
 	roof.visible = true
 	devlight.visible = false
 	gamelight.visible = true
 	bossReleased = false
 	bossGateClosed = false
+	player.setMap(MAP_PATH)
 
 func _on_DoorTriggerArea_area_entered(area):
 	if area.get_parent() != player:
@@ -41,3 +44,12 @@ func _on_enemyTriggerArea2_area_entered(area):
 
 func reportDeath(_creature):
 	crestGate.open()
+
+func _on_EntranceRoom_area_entered(_area:Area):
+	player.setRoom("Entrance")
+
+func _on_ArenaRoom_area_entered(_area:Area):
+	player.setRoom("Arena")
+
+func _on_RightShieldRoom_area_entered(_area:Area):
+	player.setRoom("Room of the right shield")

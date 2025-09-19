@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/catacombs_mm_cropped.png-0397e39d1f39ecc1cb4160e6c7b55b55.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/minimap_screenshots/catacombs_mm_cropped.png"
+dest_files=[ "res://.import/catacombs_mm_cropped.png-0397e39d1f39ecc1cb4160e6c7b55b55.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

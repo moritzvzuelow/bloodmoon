@@ -9,7 +9,6 @@ var piece = [false, false, false]
 var tutorialDone = false
 var inBossFight = false
 export var particlesEnabled = true
-var currentGoal = "Kill Lich Nur" setget setCurrentGoal
 var bossAlreadyFought = true
 
 func setBossHealth(h):
@@ -29,6 +28,3 @@ func havePiece(n):
 
 func resetPieces():
 	piece = [false, false, false]
-
-func setCurrentGoal(goal):
-	currentGoal = goal
