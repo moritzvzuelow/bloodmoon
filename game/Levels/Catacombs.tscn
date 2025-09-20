@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://game/environment/walls.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://game/environment/floors.meshlib" type="MeshLibrary" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://assets/audio/wizard/welcome_dungeon.wav" type="AudioStream" id=15]
 [ext_resource path="res://game/environment/torch.tscn" type="PackedScene" id=16]
 [ext_resource path="res://game/collectibles/manaPotion.tscn" type="PackedScene" id=17]
+[ext_resource path="res://game/enemies/Spiker.tscn" type="PackedScene" id=18]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 3 )
@@ -170,6 +171,39 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44.4494, 0.75, -35.091 )
 
 [node name="Skeleton9" parent="Navigation" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.0623, 0.75, -38.2603 )
+
+[node name="Spiker" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -1.98031, 1.27392, -31.9337 )
+
+[node name="Spiker2" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 23.8608, 1.27392, -33.2643 )
+
+[node name="Spiker3" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 55.0663, 1.27392, -27.3501 )
+
+[node name="Spiker4" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 65.6091, 1.27392, -44.4971 )
+
+[node name="Spiker5" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 22.5366, 1.27392, -64.2128 )
+
+[node name="Spiker6" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -36.9837, 1.27392, -99.286 )
+
+[node name="Spiker7" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -36.9837, 1.27392, -76.2507 )
+
+[node name="Spiker8" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -31.3675, 1.27392, -32.1439 )
+
+[node name="Spiker9" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -49.0259, 1.27392, -48.9525 )
+
+[node name="Spiker10" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -62.867, 1.27392, -47.9033 )
+
+[node name="Spiker11" parent="Navigation" instance=ExtResource( 18 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -41.2195, 1.27392, -25.0991 )
 
 [node name="CrestPiece" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0.808, -11 )

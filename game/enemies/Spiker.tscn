@@ -1,0 +1,208 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/spiker.png" type="Texture" id=1]
+[ext_resource path="res://assets/audio/spiker-hurt.wav" type="AudioStream" id=2]
+[ext_resource path="res://assets/audio/spiker-die.wav" type="AudioStream" id=3]
+[ext_resource path="res://game/enemies/Spiker.gd" type="Script" id=4]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.365297, 0.233313, 0.123601 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.198686, 0.210705, 0.215393 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("HurtPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 4, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("HurtPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 2 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 2 ]
+}
+
+[sub_resource type="SpatialMaterial" id=8]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="CubeMesh" id=9]
+material = SubResource( 8 )
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[sub_resource type="Curve" id=10]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Spiker" type="KinematicBody"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0 )
+script = ExtResource( 4 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+modulate = Color( 1, 1, 1, 0.392157 )
+billboard = 2
+texture = ExtResource( 1 )
+hframes = 7
+frame = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.310967, 0, 0, 0, 0.121146, 0, 0, 0, 1, 0, -0.296056, 0 )
+shape = SubResource( 1 )
+
+[node name="TriggerArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.724352, 0, 0, 0, 1, 0, -0.161534, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="TriggerArea"]
+shape = SubResource( 2 )
+
+[node name="HurtBox" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.38914, 0, 0, 0, 1, 0, -0.23603, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="HurtBox"]
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/attack = SubResource( 5 )
+anims/die = SubResource( 12 )
+anims/hurt = SubResource( 11 )
+anims/idle = SubResource( 3 )
+anims/walk = SubResource( 4 )
+
+[node name="Particles" type="CPUParticles" parent="."]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.303573, -0.19651 )
+emitting = false
+amount = 40
+lifetime = 0.39
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource( 9 )
+direction = Vector3( 0, 1, 0 )
+spread = 180.0
+initial_velocity = 5.0
+initial_velocity_random = 1.0
+angle_random = 1.0
+scale_amount_curve = SubResource( 10 )
+color = Color( 0.137255, 0.137255, 0.137255, 1 )
+
+[node name="HurtPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[connection signal="area_entered" from="TriggerArea" to="." method="_on_TriggerArea_area_entered"]
+[connection signal="area_exited" from="TriggerArea" to="." method="_on_TriggerArea_area_exited"]

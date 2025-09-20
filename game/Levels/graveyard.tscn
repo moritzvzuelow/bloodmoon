@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/world/nightsky.png" type="Texture" id=1]
 [ext_resource path="res://game/environment/walls.meshlib" type="MeshLibrary" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://game/environment/keydoor.tscn" type="PackedScene" id=14]
 [ext_resource path="res://game/collectibles/key.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/audio/wizard/welcome_goulish.wav" type="AudioStream" id=16]
+[ext_resource path="res://game/enemies/Spiker.tscn" type="PackedScene" id=17]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 1 )
@@ -133,6 +134,42 @@ transform = Transform( 0.928725, 0, 0.370768, 0, 1, 0, -0.370768, 0, 0.928725, -
 
 [node name="Ghoul10" parent="Navigation" instance=ExtResource( 12 )]
 transform = Transform( 0.928725, 0, 0.370768, 0, 1, 0, -0.370768, 0, 0.928725, -67.9865, 1.03211, -1.15341 )
+
+[node name="Spiker" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -18.905, 1.2721, -25.0434 )
+
+[node name="Spiker2" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -6.97689, 1.2721, -28.9084 )
+
+[node name="Spiker3" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -4.98989, 1.29728, -37.0067 )
+
+[node name="Spiker5" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( -0.0717641, 0, -3.99936, 0, 4, 0, 3.99936, 0, -0.0717641, -11.0453, 1.29728, -40.8375 )
+
+[node name="Spiker4" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -5.48538, 1.29728, -49.0273 )
+
+[node name="Spiker6" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -26.6489, 1.29728, -47.0218 )
+
+[node name="Spiker7" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( 0.0247137, 0, 3.99992, 0, 4, 0, -3.99992, 0, 0.0247137, -33.0394, 1.29728, -37.0552 )
+
+[node name="Spiker8" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( -0.0339987, 0, -3.99986, 0, 4, 0, 3.99986, 0, -0.0339987, -37.0106, 1.29728, -30.5481 )
+
+[node name="Spiker10" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( -0.0429341, 0, -3.99977, 0, 4, 0, 3.99977, 0, -0.0429341, -45.0505, 1.29728, -29.9895 )
+
+[node name="Spiker9" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( 0.0924942, 0, -3.99893, 0, 4, 0, 3.99893, 0, 0.0924942, -37.0124, 1.29728, -48.4131 )
+
+[node name="Spiker11" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -49.6804, 1.29728, -38.6258 )
+
+[node name="Spiker12" parent="Navigation" instance=ExtResource( 17 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, -58.4375, 1.29728, 0.429287 )
 
 [node name="Moon" parent="." instance=ExtResource( 4 )]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 3.23267, 50, -50 )
