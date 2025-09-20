@@ -243,6 +243,7 @@ func die():
 	animationPlayer.play("demonDie")
 	player.receiveMoons(100)
 	player.fadeToFinish()
+	bloodmoonStats.updateHighestConquered()
 
 func getVectorToPlayer():
 	return player.translation - translation

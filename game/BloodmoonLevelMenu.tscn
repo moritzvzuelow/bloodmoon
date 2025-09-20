@@ -46,16 +46,28 @@ valign = 1
 uppercase = true
 
 [node name="LevelPoints" type="Sprite" parent="Control"]
+position = Vector2( -51, 0 )
 scale = Vector2( 5, 5 )
 
 [node name="LevelPointsLabel" type="Label" parent="Control/LevelPoints"]
-margin_left = 237.8
-margin_top = 12.8
-margin_right = 372.8
-margin_bottom = 32.8
+margin_left = 256.0
+margin_top = 7.8
+margin_right = 365.0
+margin_bottom = 26.8
 custom_fonts/font = SubResource( 3 )
-text = "Bloodmoon level: 20"
-align = 1
+text = "Bloodmoon level: 8"
+align = 2
+valign = 1
+uppercase = true
+
+[node name="Highest" type="Label" parent="Control/LevelPoints"]
+margin_left = 247.2
+margin_top = 25.6
+margin_right = 367.2
+margin_bottom = 44.6
+custom_fonts/font = SubResource( 3 )
+text = "Highest: 0 (git GuD)"
+align = 2
 valign = 1
 uppercase = true
 

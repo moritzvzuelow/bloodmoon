@@ -49,6 +49,7 @@ onready var levelMenu = $LevelMenu
 onready var mapMenu = $MapMenu
 onready var bloodmoonLevelMenu = $BloodmoonLevelMenu
 onready var roomLabel = $CanvasLayer/Control/Room/Roomlabel
+onready var bloodmonLabel = $CanvasLayer/Control/Bloodmoon/Label
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -381,6 +382,7 @@ func updateHud():
 	moonLabel.text = str(playerStats.moons)
 	var bossHpPercent = float(global.bossHealth)/float(global.bossHealthMax)
 	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)
+	bloodmonLabel.text = str(bloodmoonStats.getBloodmoonLevel())
 	if global.inBossFight:
 		bossHealthAssembly.visible = true
 	else:

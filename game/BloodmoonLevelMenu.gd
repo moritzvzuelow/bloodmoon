@@ -4,6 +4,7 @@ onready var bloodmoonStats = get_node("/root/BloodmoonStats")
 
 onready var control = $Control
 onready var bloodmoonLevelLabel = $Control/LevelPoints/LevelPointsLabel
+onready var highestBeaten = $Control/LevelPoints/Highest
 onready var enemyHealthSlider = $Control/Level/EnemyHealth/HealthSlider
 onready var enemyDamageSlider = $Control/Level/EnemyDamage/DamageSlider
 onready var enemyHealingSlider = $Control/Level/EnemyHealing/HealingSlider
@@ -36,11 +37,15 @@ func openLevelMenu():
 	get_tree().paused = true
 	updateLevelpointsLabel()
 	updateBars()
+	updateHighest()
 	control.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func updateLevelpointsLabel():
 	bloodmoonLevelLabel.text = "Bloodmoon Level: %s" % bloodmoonStats.getBloodmoonLevel()
+
+func updateHighest():
+	highestBeaten.text = "Highest:%s" % bloodmoonStats.getBloodmoonDescription()
 
 func updateBars():
 	enemyHealthSlider.value = bloodmoonStats.enemyHealthLevel

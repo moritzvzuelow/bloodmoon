@@ -35,6 +35,9 @@ var potionDebuffLevel = 0
 var levelLimitLevel = 0
 var blockDurationLimitLevel = 0
 
+var conquered = true
+var highestConquered = 14
+
 func getBloodmoonLevel():
 	return enemyHealthLevel + enemyDamageLevel + enemyHealingLevel + potionDebuffLevel + levelLimitLevel + blockDurationLimitLevel
 
@@ -49,3 +52,24 @@ func getLevelLimit():
 
 func getBlockCost():
 	return -blockStaminaMap.get(blockDurationLimitLevel, 30)
+
+func updateHighestConquered():
+	if getBloodmoonLevel() > 0:
+		conquered = true
+		highestConquered = max(highestConquered, getBloodmoonLevel())
+
+func getBloodmoonDescription():
+	if not conquered:
+		return "Git Gud(0)"
+	var desc = ""
+	if 2 <= highestConquered and highestConquered <= 5:
+		desc = "NOOB"
+	elif 6 <= highestConquered and highestConquered <= 9:
+		desc = "PRO"
+	elif 10 <= highestConquered and highestConquered <= 13:
+		desc = "BEAST"
+	elif 14 <= highestConquered and highestConquered <= 17:
+		desc = "LEGEND"
+	else:
+		desc = "GOD"
+	return "%d (%s)" % [highestConquered, desc]
