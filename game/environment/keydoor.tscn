@@ -3,8 +3,7 @@
 [ext_resource path="res://game/environment/keydoor.gd" type="Script" id=1]
 [ext_resource path="res://assets/keydoorRed.png" type="Texture" id=2]
 
-[sub_resource type="ConcavePolygonShape" id=1]
-data = PoolVector3Array( -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0 )
+[sub_resource type="BoxShape" id=9]
 
 [sub_resource type="QuadMesh" id=2]
 
@@ -96,8 +95,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 1, 1, 0 )
-shape = SubResource( 1 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 0.442729, 1, 1, 0 )
+shape = SubResource( 9 )
 
 [node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 1, 1, 0 )
