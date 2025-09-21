@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+onready var global = get_node("/root/Global")
 
 onready var audio = $AudioStreamPlayer
 onready var control = $Control
@@ -22,6 +23,7 @@ func _ready():
 	buttons.pause_mode = Node.PAUSE_MODE_PROCESS
 	controls.pause_mode = Node.PAUSE_MODE_PROCESS
 	sensSlider.pause_mode = Node.PAUSE_MODE_PROCESS
+	sensSlider.value = global.sensitivity
 
 func _physics_process(_delta):
 	if get_tree().paused and Input.is_action_just_pressed("ui_accept") and not showingControls:
@@ -54,4 +56,5 @@ func toggleShowControls():
 	showingControls = !showingControls
 
 func _on_HSlider_value_changed(value):
+	global.sensitivity = int(value)
 	emit_signal("senseChanged", value)
