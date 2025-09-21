@@ -96,7 +96,7 @@ func _input(event):
 func _physics_process(delta):
 	# System
 	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
+		get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 	elif Input.is_action_just_pressed("reset") or (dead and Input.is_action_just_pressed("actualReset")):
 		playerStats.health = playerStats.healthMax
 		playerStats.stamina = playerStats.staminaMax

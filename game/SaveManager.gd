@@ -91,3 +91,9 @@ func load():
             playerStats.staminaRecovery = data["staminaRecovery"]
             playerStats.levelup_cost = data["levelUpCost"]
             playerStats.moons = data["moons"]
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		print("quit and save")
+		save()
+		get_tree().quit()

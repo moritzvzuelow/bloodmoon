@@ -25,8 +25,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if get_tree().paused and Input.is_action_just_pressed("ui_accept") and not showingControls:
-		SaveManager.save()
-		get_tree().quit()
+		get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 	elif Input.is_action_just_pressed("actualQuit") and not showingControls:
 		if get_tree().paused and opened:
 			unpause()
