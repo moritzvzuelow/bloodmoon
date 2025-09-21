@@ -9,6 +9,7 @@ var savePath = "user://savegame.json"
 func save():
 	var data = {
 		"introSeen": global.introSeen,
+		"outroSeen": global.outroSeen,
 		"piece": global.piece,
 		"tutorialDone": global.tutorialDone,
 		"inBossFight": global.inBossFight,
@@ -60,6 +61,7 @@ func load():
 
 		if typeof(data) == TYPE_DICTIONARY:
 			global.introSeen = data["introSeen"]
+			global.outroSeen = data["outroSeen"]
 			global.piece = data["piece"]
 			global.tutorialDone = data["tutorialDone"]
 			global.inBossFight = data["inBossFight"]
@@ -96,6 +98,5 @@ func load():
 
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		print("quit and save")
 		save()
 		get_tree().quit()

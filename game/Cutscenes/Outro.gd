@@ -18,6 +18,9 @@ var allowSkip = false
 var frame = 0
 
 func _ready():
+	if global.outroSeen:
+		exit()
+
 	text.text = slideTexts[frame]
 	animationPlayer.play("DisplayText")
 	space.visible = false
@@ -94,6 +97,7 @@ func hideCredits():
 	creditsText.visible = false
 
 func exit():
+	global.outroSeen = true
 	playerStats.health = playerStats.healthMax
 	playerStats.stamina = playerStats.staminaMax
 	playerStats.mana = playerStats.manaMax
