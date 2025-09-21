@@ -5,6 +5,7 @@ extends Node
 # Global Vars
 export var bossHealthMax = 100 setget setBossHealthMax
 export var bossHealth = 100 setget setBossHealth
+var introSeen = false
 var piece = [false, false, false]
 var tutorialDone = false
 var inBossFight = false

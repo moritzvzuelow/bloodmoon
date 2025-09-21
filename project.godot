@@ -15,7 +15,7 @@ _global_script_class_icons={
 [application]
 
 config/name="BloodMoon"
-run/main_scene="res://game/Levels/HubWorld.tscn"
+run/main_scene="res://game/Cutscenes/Intro.tscn"
 config/icon="res://assets/MOON.png"
 
 [aseprite_animation_importer]
@@ -27,6 +27,7 @@ aseprite_executable_path=""
 Global="*res://game/Global.tscn"
 BloodmoonStats="*res://game/BloodmoonStats.gd"
 PlayerStats="*res://game/PlayerStats.gd"
+SaveManager="*res://game/SaveManager.gd"
 
 [display]
 

@@ -1,5 +1,7 @@
 extends Node2D
 
+onready var global = get_node("/root/Global")
+onready var saveManager = get_node("/root/SaveManager")
 
 onready var animationPlayer = $AnimationPlayer
 onready var text = $Control/Sprite/Text
@@ -11,6 +13,10 @@ var allowSkip = false
 var frame = 0
 
 func _ready():
+	saveManager.load()
+	if global.introSeen:
+		get_tree().change_scene("res://game/Levels/HubWorld.tscn")
+
 	text.text = slideTexts[frame]
 	animationPlayer.play("DisplayText")
 	space.visible = false
@@ -48,6 +54,7 @@ func _physics_process(_delta):
 		allowSkip = false
 		frame += 1
 		if frame >= slideTexts.size():
+			global.introSeen = true
 			get_tree().change_scene("res://game/Levels/HubWorld.tscn")
 			return
 		text.percent_visible = 0
