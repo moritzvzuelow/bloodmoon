@@ -13,6 +13,7 @@ extents = Vector3( 0.198686, 0.210705, 0.215393 )
 
 [sub_resource type="Animation" id=5]
 resource_name = "attack"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -172,7 +173,7 @@ modulate = Color( 1, 1, 1, 0.392157 )
 billboard = 2
 texture = ExtResource( 1 )
 hframes = 7
-frame = 4
+frame = 6
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.310967, 0, 0, 0, 0.121146, 0, 0, 0, 1, 0, -0.296056, 0 )

@@ -145,6 +145,7 @@ func hurt():
 
 func die():
 	animationPlayer.play("die")
+	triggerArea.monitoring = false
 	hurtboxShape.queue_free()
 	collisionShape.queue_free()
 	triggerArea.queue_free()
