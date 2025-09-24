@@ -280,7 +280,7 @@ __meta__ = {
 
 [node name="RayCast" type="RayCast" parent="."]
 enabled = true
-cast_to = Vector3( 0, 0, -3 )
+cast_to = Vector3( 0, 0, -2.5 )
 
 [node name="Particles" type="CPUParticles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.19651 )
