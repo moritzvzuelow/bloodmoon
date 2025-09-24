@@ -554,7 +554,7 @@ transform = Transform( 4.22563, 0, 0, 0, 1, 0, 0, 0, 11.7791, -66.5932, 0, 1.957
 shape = SubResource( 4 )
 
 [node name="LeftShieldRoom" type="Area" parent="."]
-transform = Transform( 11.3781, 0, 0, 0, 1, 0, 0, 0, 11.7791, -48.0684, 0, -0.16515 )
+transform = Transform( 11.3781, 0, 0, 0, 1, 0, 0, 0, 10.7996, -48.0684, 0, -0.16515 )
 
 [node name="CollisionShape" type="CollisionShape" parent="LeftShieldRoom"]
 shape = SubResource( 4 )

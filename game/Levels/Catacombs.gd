@@ -2,6 +2,8 @@ extends Spatial
 
 const MAP_PATH = "res://assets/minimap_screenshots/catacombs_mm_cropped.png"
 
+const goal = "Find the sword crest\nThe lights will lead the way"
+
 onready var roof = $Walls2
 onready var global = get_node("/root/Global")
 onready var player = $Player
@@ -9,7 +11,7 @@ onready var player = $Player
 var hasKey = [false, false]
 
 func _ready():
-	player.setGoal("Find the sword crest")
+	player.setGoal(goal)
 	roof.visible=true
 	player.setMap(MAP_PATH)
 

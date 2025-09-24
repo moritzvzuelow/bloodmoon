@@ -2,6 +2,8 @@ extends Spatial
 
 const MAP_PATH = "res://assets/minimap_screenshots/hubworld_mm_cropped.png"
 
+const goal = "Surpass 3 challenges to find 3 crests"
+
 onready var player = $Player
 onready var global = get_node("/root/Global")
 onready var animationPlayer = $AnimationPlayer
@@ -31,7 +33,7 @@ const kyleAudio = [
 var tutorialLine = 0
 
 func _ready():
-	player.setGoal("Kill Lich Nur")
+	player.setGoal(goal)
 	player.setMap(MAP_PATH)
 	player.fadeIn()
 	if !global.tutorialDone:

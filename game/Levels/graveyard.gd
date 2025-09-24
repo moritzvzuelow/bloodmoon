@@ -2,6 +2,8 @@ extends Spatial
 
 const MAP_PATH = "res://assets/minimap_screenshots/graveyard_mm_cropped.png"
 
+const goal = "Find the left shield crest\nThe road will be rocky"
+
 onready var global = get_node("/root/Global")
 
 onready var devlight = $DirectionalLight
@@ -11,7 +13,7 @@ onready var player = $Player
 var hasKey = [false, false]
 
 func _ready():
-	player.setGoal("Find the left shield crest")
+	player.setGoal(goal)
 	devlight.visible = false
 	gamelight.visible = true
 	player.setMap(MAP_PATH)

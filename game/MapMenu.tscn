@@ -23,11 +23,8 @@ margin_bottom = 1080.0
 color = Color( 0, 0, 0, 0.784314 )
 
 [node name="Map" type="TextureRect" parent="Control"]
-margin_left = -485.0
-margin_top = -300.0
-margin_right = 1435.0
-margin_bottom = 823.0
-rect_scale = Vector2( 1.5, 1.5 )
+margin_right = 1920.0
+margin_bottom = 1080.0
 texture = ExtResource( 1 )
 stretch_mode = 6
 
@@ -35,12 +32,27 @@ stretch_mode = 6
 scale = Vector2( 2.5, 2.5 )
 
 [node name="GoalLabel" type="Label" parent="Control/Goal"]
-margin_left = 598.4
-margin_top = 18.0
-margin_right = 760.4
-margin_bottom = 37.0
+margin_left = 602.4
+margin_top = 3.6
+margin_right = 764.4
+margin_bottom = 34.6
 custom_colors/font_color = Color( 0, 0.941176, 0.964706, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Find the right shield crest"
 align = 2
 valign = 1
+autowrap = true
+
+[node name="Room" type="Node2D" parent="Control"]
+scale = Vector2( 2.5, 2.5 )
+
+[node name="RoomLabel" type="Label" parent="Control/Room"]
+margin_left = 540.0
+margin_top = 82.0
+margin_right = 702.0
+margin_bottom = 113.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Hub"
+valign = 1
+autowrap = true

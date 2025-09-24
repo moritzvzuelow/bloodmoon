@@ -449,6 +449,7 @@ func setGoal(g):
 	mapMenu.setGoal(g)
 
 func setRoom(r):
+	mapMenu.setRoom(r)
 	roomLabel.text = r
 
 func setCanvasVisible(b):

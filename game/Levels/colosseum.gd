@@ -1,6 +1,8 @@
 extends Spatial
 
-const MAP_PATH = "res://assets/minimap_screenshots/colloseum_mm_cropped.png"
+const MAP_PATH = "res://assets/minimap_screenshots/colosseum_mm_cropped.png"
+
+const goal = "Find the right shield crest"
 
 onready var global = get_node("/root/Global")
 
@@ -16,7 +18,7 @@ var bossReleased = false
 var bossGateClosed = false
 
 func _ready():
-	player.setGoal("Find the right shield crest")
+	player.setGoal(goal)
 	roof.visible = true
 	devlight.visible = false
 	gamelight.visible = true
