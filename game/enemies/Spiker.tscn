@@ -66,6 +66,18 @@ tracks/2/keys = {
 } ],
 "times": PoolRealArray( 0 )
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite3D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.392157 ) ]
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "hurt"
@@ -160,7 +172,7 @@ modulate = Color( 1, 1, 1, 0.392157 )
 billboard = 2
 texture = ExtResource( 1 )
 hframes = 7
-frame = 1
+frame = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.310967, 0, 0, 0, 0.121146, 0, 0, 0, 1, 0, -0.296056, 0 )
