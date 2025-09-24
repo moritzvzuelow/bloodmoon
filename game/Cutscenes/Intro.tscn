@@ -101,8 +101,6 @@ anims/spacebar = SubResource( 3 )
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -16.0
-autoplay = true
 
 [node name="kyle" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-autoplay = true

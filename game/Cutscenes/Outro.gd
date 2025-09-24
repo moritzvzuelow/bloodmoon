@@ -50,7 +50,8 @@ const credits = [
 	"Created for GITHUB GAME JAM 2020 by Phil Breczinski",
 	"Special Thanks to Kyle Fay for voicing NODROG/NUR",
 	"Thank you to Richard Anderson, Alex Brick, Sam Collins, and Nathan Gaida for playtesting.",
-	"and thank YOU for playing BLOODMOON."
+	"Extended by Mo for Gamecraft/Rapid Game Development",
+	"Thank YOU for playing BLOODMOON."
 ]
 
 func _physics_process(_delta):
