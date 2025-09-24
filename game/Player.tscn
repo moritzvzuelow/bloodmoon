@@ -895,10 +895,10 @@ hframes = 23
 frame = 2
 
 [node name="crests" type="Node2D" parent="CanvasLayer/Control"]
-position = Vector2( 240, 0 )
+position = Vector2( 1718, -815 )
 
 [node name="Crest1" type="Sprite" parent="CanvasLayer/Control/crests"]
-position = Vector2( 70, 960 )
+position = Vector2( 70, 961 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 8 )
 hframes = 4
@@ -924,7 +924,7 @@ scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 10 )
 
 [node name="keys" type="Node2D" parent="CanvasLayer/Control"]
-position = Vector2( 90, 960 )
+position = Vector2( 66, 259 )
 
 [node name="redkey" type="Sprite" parent="CanvasLayer/Control/keys"]
 scale = Vector2( 10, 10 )
@@ -1013,7 +1013,7 @@ margin_right = 760.4
 margin_bottom = 22.2
 custom_colors/font_color = Color( 0.792157, 0.792157, 0.792157, 0.980392 )
 custom_fonts/font = SubResource( 35 )
-text = "Hub"
+text = "Room of the 1000 ways"
 align = 2
 valign = 1
 
