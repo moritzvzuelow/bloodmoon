@@ -35,8 +35,8 @@ var potionDebuffLevel = 0
 var levelLimitLevel = 0
 var blockDurationLimitLevel = 0
 
-var conquered = true
-var highestConquered = 14
+var conquered = false
+var highestConquered = 0
 
 func getBloodmoonLevel():
 	return enemyHealthLevel + enemyDamageLevel + enemyHealingLevel + potionDebuffLevel + levelLimitLevel + blockDurationLimitLevel

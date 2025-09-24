@@ -17,7 +17,7 @@ var staminaLevel = 0
 var manaLevel = 0
 var strengthLevel = 0
 var magicLevel = 0
-var remainingLevelPointsMax = 0
+var remainingLevelPointsMax = 5
 var remainingLevelPoints = remainingLevelPointsMax
 
 # max Character Stats
@@ -36,7 +36,7 @@ var magicDamage = BASE_MAGICAL_DAMAGE + 4 * magicLevel
 var staminaRecovery = staminaMax * 0.3
 
 var levelup_cost = BASE_LEVELUP_COST
-var moons = 150
+var moons = 0
 
 
 func hasEnoughStamina(s):

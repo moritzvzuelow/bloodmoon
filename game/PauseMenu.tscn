@@ -57,9 +57,9 @@ margin_right = 381.0
 margin_bottom = 127.4
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "-- PAUSED --
-WASD: Move
+text = "WASD: Move
 Left Click: Attack (Slash)
+Left Click Hold: Strong Attack (Stab)
 Right Click: Block (can be held)
 E: Use
 F: Kick
