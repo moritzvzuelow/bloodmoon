@@ -34,5 +34,6 @@ func _on_PickupArea_area_entered(area):
 		return
 	level.acquireKey(keyNum)
 	player.updateHud()
+	player.receiveMoons(20)
 	queue_free()
 

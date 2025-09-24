@@ -67,6 +67,8 @@ func stab(d):
 	damage(d)
 	
 func damage(d):
+	if state == DEAD:
+		return
 	health -= d
 	if health <= 0:
 		die()
@@ -144,11 +146,11 @@ func hurt():
 	state = HURT
 
 func die():
-	animationPlayer.play("die")
 	triggerArea.monitoring = false
+	triggerArea.queue_free()
 	hurtboxShape.queue_free()
 	collisionShape.queue_free()
-	triggerArea.queue_free()
+	animationPlayer.play("die")
 	state = DEAD
 	player.receiveMoons(20)
 
@@ -161,7 +163,6 @@ func _on_TriggerArea_area_entered(area:Area):
 	if target != player:
 		return
 	attack(target)
-
 
 func _on_TriggerArea_area_exited(area:Area):
 	var target = area.get_parent()

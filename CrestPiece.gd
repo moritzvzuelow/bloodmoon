@@ -32,6 +32,7 @@ func _on_PickupArea_area_entered(area):
 	if thing != player:
 		return
 	global.getPiece(pieceNumber)
+	player.receiveMoons(50)
 	player.updateHud()
 	player.teleportHome()
 	queue_free()

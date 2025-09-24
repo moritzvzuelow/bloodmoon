@@ -11,7 +11,7 @@ var piece = [false, false, false]
 var tutorialDone = false
 var inBossFight = false
 export var particlesEnabled = true
-var bossAlreadyFought = true
+var bossAlreadyFought = false
 var sensitivity = 10
 
 func setBossHealth(h):

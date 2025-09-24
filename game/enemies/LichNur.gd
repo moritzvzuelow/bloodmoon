@@ -157,6 +157,12 @@ func stab(d):
 	else:
 		damage(d)
 
+func magic(m):
+	if blocking:
+		pass
+	else:
+		damage(0.5*m)	
+
 func riposte():
 	animationPlayer.play("startRiposte")
 	player.damage(riposteDamage)
@@ -241,7 +247,7 @@ func transform():
 func die():
 	state = WIZARD
 	animationPlayer.play("demonDie")
-	player.receiveMoons(100)
+	player.receiveMoons(300)
 	player.fadeToFinish()
 	bloodmoonStats.updateHighestConquered()
 

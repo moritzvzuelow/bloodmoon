@@ -84,9 +84,16 @@ func stab(d):
 	else:
 		damage(d)
 
+func magic(m):
+	if blocking:
+		pass
+	else:
+		damage(0.5*m)	
+
 func riposte():
 	animationPlayer.play("startRiposte")
 	pass
+
 	
 func damage(d):
 	global.damageBoss(d)
@@ -190,7 +197,7 @@ func die():
 	collisionShape.queue_free()
 	light.queue_free()
 	state = DEAD
-	player.receiveMoons(200)
+	player.receiveMoons(100)
 	if level.has_method("reportDeath"):
 		level.reportDeath(self)
 	global.inBossFight = false

@@ -17,7 +17,7 @@ var velocity
 onready var global = get_node("/root/Global")
 onready var bloodmoonStats = get_node("/root/BloodmoonStats")
 onready var playerStats = get_node("/root/PlayerStats")
-
+onready var saveManager = get_node("/root/SaveManager")
 
 onready var head = $Head
 onready var rayCast = $Head/RayCast
@@ -152,6 +152,10 @@ func _physics_process(delta):
 				chargePlayed = true
 				stopBlock()
 				currentSpeed = 1
+		if chargeTime >= CHARGE_RELEASE_THRESHOLD:
+			sprite.modulate = Color(0,0,1)
+			var tween = create_tween()
+			tween.tween_property(sprite, "modulate", Color(1, 1, 1), 0.3) # zurück zu normal
 
 			
 	if isIdle() and not isBlocking and not isCharging:
@@ -355,6 +359,7 @@ func die():
 	receiveMoons(10)
 	animationPlayer.play("rightExit")
 	cameraAnimationPlayer.play("die")
+	saveManager.save()
 
 func pickupHealth():
 	var potion_hp = playerStats.healthMax * bloodmoonStats.getPotionMultiplier()
@@ -431,9 +436,11 @@ func fadeToFinish():
 	teleportAnimationPlayer.play("fadeToFinish")
 
 func doFinish():
+	saveManager.save()
 	get_tree().change_scene("res://game/Cutscenes/Outro.tscn")
 
 func doTeleport():
+	saveManager.save()
 	get_tree().change_scene("res://game/Levels/HubWorld.tscn")
 	
 func playHealthPickupAnim():

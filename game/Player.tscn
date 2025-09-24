@@ -254,6 +254,18 @@ tracks/1/keys = {
 "method": "tellBlockersToBlock"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Head/Camera/Sprite3D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
 
 [sub_resource type="Animation" id=10]
 length = 0.4
@@ -785,7 +797,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 46
-frame = 37
+frame = 36
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true

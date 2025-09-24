@@ -28,6 +28,8 @@ func _physics_process(delta):
 func doHit(collider):
 	if collider == source or collider.is_in_group("obstacles"):
 		return
-	if collider.has_method("damage"):
+	if collider.has_method("magic"):
+		collider.magic(magicDamage)
+	elif collider.has_method("damage"):
 		collider.damage(magicDamage)
 	queue_free() #delete self

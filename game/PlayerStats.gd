@@ -111,7 +111,7 @@ func levelup():
 		return
 	updateRemainingLevels(1)
 	moons -= levelup_cost
-	levelup_cost = int(levelup_cost * 1.5)
+	levelup_cost += 50
 
 func isHealthMax():
 	return health == healthMax
