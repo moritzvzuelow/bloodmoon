@@ -12,9 +12,15 @@ var paused = false
 var opened = false
 var showingControls = false
 
+var player
+
+func setPlayer(p):
+	player = p
+
 signal senseChanged(value)
 
 func _ready():
+	add_to_group("menus")
 	control.visible = false
 	controls.visible = false
 	audio.playing = false
@@ -42,8 +48,10 @@ func unpause():
 	control.visible = false
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	player.setCanvasVisible(true)
 
 func pause():
+	player.setCanvasVisible(false)
 	opened = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	audio.playing = true

@@ -24,6 +24,7 @@ onready var rayCast = $Head/RayCast
 onready var rayCastClose = $Head/RayCastClose
 onready var animationPlayer = $AnimationPlayer
 onready var cameraAnimationPlayer = $Head/CameraAnimationPlayer
+onready var canvasControl = $CanvasLayer/Control
 onready var sprite = $Head/Camera/Sprite3D
 onready var blood = $Head/Blood
 onready var deathscreen = $CanvasLayer/Control/YouDied
@@ -79,6 +80,7 @@ func _ready():
 	get_tree().call_group("enemies", "setPlayer", self)
 	get_tree().call_group("collectibles", "setPlayer", self)
 	get_tree().call_group("interactables", "setPlayer", self)
+	get_tree().call_group("menus", "setPlayer", self)
 	tooltip.text = ""
 	clearDialogue()
 	colorrect.color = Color(0,0,0,0)
@@ -438,6 +440,9 @@ func setGoal(g):
 
 func setRoom(r):
 	roomLabel.text = r
+
+func setCanvasVisible(b):
+	canvasControl.visible = b
 
 func _on_PauseMenu_senseChanged(value):
 	mouseSense = value 

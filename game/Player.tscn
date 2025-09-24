@@ -758,7 +758,7 @@ disabled = true
 transform = Transform( -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0, 1, 0, 0, -1.2 )
 
 [node name="SwordShape" type="CollisionShape" parent="Head/SwordArea"]
-transform = Transform( 0.000167602, -0.412942, 0, 0.999999, -0.000167832, 0, 0, 0, 0.509591, 0, 0, 0.534554 )
+transform = Transform( 0.000167602, -0.412941, 0, 0.999999, -0.000167832, 0, 0, 0, 0.509591, 0, 0, 0.534554 )
 shape = SubResource( 3 )
 disabled = true
 

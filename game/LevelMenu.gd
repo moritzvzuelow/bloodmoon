@@ -17,8 +17,14 @@ onready var button = $Control/Levelup/Button
 var paused = false
 var opened = false
 
+var player
+
+func setPlayer(p):
+	player = p
+
 
 func _ready():
+	add_to_group("menus")
 	control.visible = false
 	pause_mode = Node.PAUSE_MODE_PROCESS
 	control.pause_mode = Node.PAUSE_MODE_PROCESS
@@ -33,8 +39,10 @@ func closeLevelMenu():
 	control.visible = false
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	player.setCanvasVisible(true)
 
 func openLevelMenu():
+	player.setCanvasVisible(false)
 	opened = true
 	get_tree().paused = true
 	updateLevelpointsLabel()

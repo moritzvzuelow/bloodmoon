@@ -12,12 +12,12 @@ const BASE_MAGICAL_DAMAGE = 10
 const BASE_LEVELUP_COST = 100
 
 # levelpoints
-var healthLevel = 0
-var staminaLevel = 0
-var manaLevel = 0
-var strengthLevel = 0
-var magicLevel = 0
-var remainingLevelPointsMax = 0
+var healthLevel = 20
+var staminaLevel = 20
+var manaLevel = 20
+var strengthLevel = 20
+var magicLevel = 20
+var remainingLevelPointsMax = 20
 var remainingLevelPoints = remainingLevelPointsMax
 
 # max Character Stats
