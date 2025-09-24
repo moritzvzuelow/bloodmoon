@@ -13,6 +13,9 @@ func _ready():
 func use():
 	player.openLevelMenu()
 
+func getTooltip():
+	return "Build your skills"
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#pass

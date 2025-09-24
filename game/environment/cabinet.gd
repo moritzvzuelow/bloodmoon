@@ -13,6 +13,9 @@ func _ready():
 func use():
 	player.openBloodmoonLevelMenu()
 
+func getTooltip():
+	return "Challenge yourself"
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#pass
