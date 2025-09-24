@@ -205,9 +205,6 @@ func doSlash(ret = false):
 
 func doStab():
 	var staminaCost = 50
-	if not hasEnoughStamina(staminaCost):
-		animationPlayer.play("rightReturn")
-		return
 	addStamina(-staminaCost)
 	animationPlayer.play("stab")
 

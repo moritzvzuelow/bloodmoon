@@ -17,7 +17,7 @@ var staminaLevel = 0
 var manaLevel = 0
 var strengthLevel = 0
 var magicLevel = 0
-var remainingLevelPointsMax = 5
+var remainingLevelPointsMax = 0
 var remainingLevelPoints = remainingLevelPointsMax
 
 # max Character Stats
