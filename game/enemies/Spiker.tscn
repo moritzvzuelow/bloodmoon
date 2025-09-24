@@ -216,6 +216,7 @@ color = Color( 0.137255, 0.137255, 0.137255, 1 )
 
 [node name="HurtPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -5.0
 
 [connection signal="area_entered" from="TriggerArea" to="." method="_on_TriggerArea_area_entered"]
 [connection signal="area_exited" from="TriggerArea" to="." method="_on_TriggerArea_area_exited"]
