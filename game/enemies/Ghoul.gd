@@ -105,7 +105,7 @@ func _physics_process(delta):
 				attack()
 	elif state == KICKED:
 		kickSpeed = lerp(kickSpeed, 0, KICK_DECCEL * delta)
-		if kickSpeed == 0:
+		if kickSpeed <= 0.01:
 			idle()
 		else:
 			move_and_slide(kickDirection * kickSpeed)
