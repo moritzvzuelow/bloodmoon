@@ -185,6 +185,18 @@ tracks/5/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite3D:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=4]
 length = 2.0
@@ -315,7 +327,7 @@ anims/shoot = SubResource( 5 )
 anims/walkdown = SubResource( 6 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 3 )
 
 [node name="Hitbox" type="Area" parent="."]
 
