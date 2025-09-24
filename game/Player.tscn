@@ -16,9 +16,9 @@
 [ext_resource path="res://assets/audio/gulp.wav" type="AudioStream" id=14]
 [ext_resource path="res://game/LevelMenu.tscn" type="PackedScene" id=15]
 [ext_resource path="res://game/BloodmoonLevelMenu.tscn" type="PackedScene" id=16]
-[ext_resource path="res://assets/moons.png" type="Texture" id=17]
 [ext_resource path="res://game/MapMenu.tscn" type="PackedScene" id=18]
 [ext_resource path="res://assets/MOON.png" type="Texture" id=19]
+[ext_resource path="res://game/Moons.tscn" type="PackedScene" id=20]
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -631,13 +631,13 @@ outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 9 )
 
-[sub_resource type="DynamicFont" id=34]
+[sub_resource type="DynamicFont" id=35]
 size = 10
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 9 )
 
-[sub_resource type="DynamicFont" id=35]
+[sub_resource type="DynamicFont" id=34]
 size = 10
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
@@ -1003,28 +1003,6 @@ scale = Vector2( 3.41667, 6.28704 )
 texture = ExtResource( 7 )
 centered = false
 
-[node name="Moons" type="Node2D" parent="CanvasLayer/Control"]
-position = Vector2( 0, 20 )
-scale = Vector2( 5, 5 )
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Moons"]
-margin_left = 328.2
-margin_top = 192.4
-margin_right = 392.2
-margin_bottom = 256.4
-rect_scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 17 )
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/Moons"]
-margin_left = 346.2
-margin_top = 193.0
-margin_right = 382.2
-margin_bottom = 207.0
-custom_fonts/font = SubResource( 34 )
-text = "500000"
-align = 1
-valign = 1
-
 [node name="Room" type="Node2D" parent="CanvasLayer/Control"]
 scale = Vector2( 2.5, 2.5 )
 
@@ -1059,6 +1037,9 @@ margin_bottom = 207.0
 custom_fonts/font = SubResource( 34 )
 text = "5: Savage"
 valign = 1
+
+[node name="Moons" parent="CanvasLayer/Control" instance=ExtResource( 20 )]
+position = Vector2( 359, 219 )
 
 [node name="DialogueAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/print = SubResource( 23 )

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/soul-steal.mp3-9498034c06956afa665918a6502c2d5e.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/soul-steal.mp3"
+dest_files=[ "res://.import/soul-steal.mp3-9498034c06956afa665918a6502c2d5e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

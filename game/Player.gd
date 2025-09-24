@@ -34,7 +34,6 @@ onready var manaBar = $CanvasLayer/Control/Mana/ManaBar
 onready var crest1 = $CanvasLayer/Control/crests/Crest1
 onready var crest2 = $CanvasLayer/Control/crests/Crest2
 onready var crest3 = $CanvasLayer/Control/crests/Crest3
-onready var moonLabel = $CanvasLayer/Control/Moons/Label
 onready var tooltip = $CanvasLayer/Control/Pixelator/tooltip
 onready var dialogue = $CanvasLayer/Control/Pixelator/Dialogue
 onready var dialoguePlayer = $DialogueAnimationPlayer
@@ -51,6 +50,7 @@ onready var mapMenu = $MapMenu
 onready var bloodmoonLevelMenu = $BloodmoonLevelMenu
 onready var roomLabel = $CanvasLayer/Control/Room/Roomlabel
 onready var bloodmonLabel = $CanvasLayer/Control/Bloodmoon/Label
+onready var moons = $CanvasLayer/Control/Moons
 
 export var freezePlayer = false setget setFreezePlayer
 
@@ -86,6 +86,8 @@ func _ready():
 	colorrect.color = Color(0,0,0,0)
 	blood.emitting = false
 	mouseSense = pauseMenu.sensSlider.value
+	if playerStats.levelUpPossible():
+		moons.startEmitting()
 
 func _input(event):
 	if get_tree().paused:
@@ -378,7 +380,7 @@ func updateHud():
 	staminaBar.rect_scale = Vector2(staminaPercent, 1)
 	var manaPercent = playerStats.getManaPercent()
 	manaBar.rect_scale = Vector2(manaPercent, 1)
-	moonLabel.text = str(playerStats.moons)
+	moons.setLabelText(playerStats.moons)
 	var bossHpPercent = float(global.bossHealth)/float(global.bossHealthMax)
 	bossHealthBar.rect_scale = Vector2(bossHpPercent, 1)
 	bloodmonLabel.text = str(bloodmoonStats.getBloodmoonLevel())
@@ -401,6 +403,14 @@ func playDialogue(s):
 
 func receiveMoons(m):
 	playerStats.addMoons(m)
+	if playerStats.levelUpPossible():
+		moons.startEmitting()
+	else:
+		moons.oneShot()
+
+func levelUped():
+	if not playerStats.levelUpPossible():
+		moons.stopEmitting()
 
 func resetLevels():
 	playerStats.resetLevels()

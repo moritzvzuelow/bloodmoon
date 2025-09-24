@@ -13,6 +13,7 @@ onready var strengthSlider = $Control/Level/Strength/StrengthSlider
 onready var magicSlider = $Control/Level/Magic/MagicSlider
 onready var moonsLabel = $Control/Moons/Label
 onready var button = $Control/Levelup/Button
+onready var levelUpSound = $LevelUp
 
 var paused = false
 var opened = false
@@ -21,7 +22,6 @@ var player
 
 func setPlayer(p):
 	player = p
-
 
 func _ready():
 	add_to_group("menus")
@@ -121,7 +121,9 @@ func _on_StrengthSlider_value_changed(value:float):
 	updateLevelpointsLabel()
 
 func _on_Button_pressed():
+	levelUpSound.play()
 	playerStats.levelup()
+	player.levelUped()
 	updateLevelpointsLabel()
 	updateMoonsLabel()
 	updateButton()

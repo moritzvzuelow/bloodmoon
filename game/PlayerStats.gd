@@ -36,7 +36,7 @@ var magicDamage = BASE_MAGICAL_DAMAGE + 4 * magicLevel
 var staminaRecovery = staminaMax * 0.3
 
 var levelup_cost = BASE_LEVELUP_COST
-var moons = 0
+var moons = 300
 
 
 func hasEnoughStamina(s):
