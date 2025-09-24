@@ -5,10 +5,10 @@ extends Node
 # Global Vars
 export var bossHealthMax = 100 setget setBossHealthMax
 export var bossHealth = 100 setget setBossHealth
-var introSeen = true
+var introSeen = false
 var outroSeen = false
 var piece = [false, false, false]
-var tutorialDone = true
+var tutorialDone = false
 var inBossFight = false
 export var particlesEnabled = true
 var bossAlreadyFought = true

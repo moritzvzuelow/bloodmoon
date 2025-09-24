@@ -16,6 +16,7 @@ func _ready():
 	saveManager.load()
 	if global.introSeen:
 		get_tree().change_scene("res://game/Levels/HubWorld.tscn")
+		return
 	kyle.stream = load(audioLines[frame])
 	kyle.playing = true
 	text.text = slideTexts[frame]
