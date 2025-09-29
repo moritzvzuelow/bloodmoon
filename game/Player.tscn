@@ -634,6 +634,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AttackSFX")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 12 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="CapsuleMesh" id=21]
 
@@ -756,7 +770,7 @@ transform = Transform( 0.5, 0, 0, 0, 0.75, 0, 0, 0, 0.5, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="Head" type="Spatial" parent="."]
-transform = Transform( 1, -0.000285772, 0, 0.000285772, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0 )
 
 [node name="KickArea" type="Area" parent="Head"]
 transform = Transform( -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0, 1, 0, 0, -1 )
@@ -797,7 +811,7 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource( 1 )
 hframes = 46
-frame = 36
+frame = 37
 
 [node name="RayCast" type="RayCast" parent="Head"]
 enabled = true
@@ -848,7 +862,7 @@ __meta__ = {
 }
 
 [node name="AttackSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
+stream = ExtResource( 13 )
 volume_db = -9.0
 
 [node name="HurtSFX" type="AudioStreamPlayer" parent="."]
